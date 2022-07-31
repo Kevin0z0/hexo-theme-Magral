@@ -1,0 +1,64 @@
+@mixin center($position:(),$add:()){
+    position: absolute;
+    @if $position == 'y'{
+        top: 50%;
+        transform: translateY(-50%);
+    }@else if($position == 'x'){
+        left: 50%;
+        transform: translateX(-50%) $add;
+    }@else{
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%,-50%) $add;
+    }
+}
+
+@mixin playlist-grid{
+    display: grid;
+    justify-content: space-between;
+    grid-template-columns: repeat(auto-fit,minmax(15rem,1fr));
+    grid-gap: 3rem;
+
+    @media only screen and (min-width: 81.25em) {
+        grid-template-columns: repeat(auto-fit,minmax(17rem,1fr));
+    }
+
+    @media only screen and (min-width: 90.63em) {
+        grid-template-columns: repeat(auto-fit,minmax(20rem,1fr));
+    }
+
+    @media only screen and (min-width: 102.18em) {
+        grid-template-columns: repeat(auto-fit,minmax(23rem,1fr));
+    }
+}
+
+@mixin bg-blur($trans:.85){
+    backdrop-filter: saturate(250%) blur(20px);
+    background-color: rgba(255, 255, 255, $trans);
+}
+
+@mixin full{
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+}
+
+@mixin cover{
+    background-size: cover;
+    background-position: center;
+}
+
+@mixin ellipsis($num){
+    overflow: hidden;
+    text-overflow: ellipsis;
+    @if($num > 1){
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: $num;
+    }@else{
+        white-space: nowrap;
+    }
+}

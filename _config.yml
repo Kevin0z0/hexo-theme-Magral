@@ -1,0 +1,19 @@
+# Magral Theme Config
+title: Kevin's Blog
+
+
+
+
+
+
+
+
+
+# 开发者模式
+dev: true
+
+version: 0.1.0
+
+sass:
+  compressed: true
+  save: false
