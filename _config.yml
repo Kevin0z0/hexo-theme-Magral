@@ -1,7 +1,9 @@
 # Magral Theme Config
-title: Kevin's Blog
+title: Magral
 
-
+logo:
+  img:
+  name: Magral
 
 
 
@@ -14,6 +16,48 @@ dev: true
 
 version: 0.1.0
 
+
 sass:
   compressed: true
   save: false
+  prefix: prod_
+  theme: light
+  autoprefixer: true
+
+  light:
+    background: '#FFF'
+    primaryColor: '#2F66FF'
+    gradualColor: '#494FF0'
+    secondaryColor: '#E7EDFF'
+
+    contrast: '#EA7079'
+    contrastSecondary: '#FFEEEF'
+
+    footer: $primaryColor
+
+    primaryFontColor: '#414141'
+    secondaryFontColor: '#A9A9A9'
+
+    
+
+
+  dark:
+    background: "#000"
+    primaryColor: '#2F66FF'
+    gradualColor: '#494FF0'
+    secondaryColor: '#E7EDFF'
+
+    contrast: '#EA7079'
+    contrastSecondary: '#FFEEEF'
+  
+icons:
+  - icon: iconfont icon-github
+    name: Github
+    url: https://github.com/Kevin0z0
+  - icon: iconfont icon-instagram
+    name: Instagram
+    size: 2.3
+    url: https://www.instagram.com/tinycococo/
+  - icon: iconfont icon-weixin
+    img: /medias/qrcode.jpg
+    width: 10

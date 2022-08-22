@@ -1,3 +1,5 @@
-import anime from 'animejs/lib/anime.es.js';
+// import anime from 'animejs/lib/anime.es.js';
 
-console.log(anime)
+// console.log(anime)
+
+import './icon'

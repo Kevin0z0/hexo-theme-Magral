@@ -26,13 +26,21 @@ module.exports = (env, argv) => {
         },
         devtool: isDev ? 'source-map' : false,
         mode: argv.mode,
-        module: {},
+        module: {
+            rules: [
+              {
+                test: /\.css$/i,
+                use: ["style-loader", "css-loader"],
+              },
+            ],
+          },
         resolve: {
             extensions: ['.js']
         },
         devServer: {
             liveReload: true,
             port: 60002,
+            watchFiles: ['./dev', './source', './layout', './config.yml'],
             setupMiddlewares: (middlewares, devServer) => {
                 devServer.app.use("*", (req, res, next) => {
                     res.header("Access-Control-Allow-Credentials", "true")
@@ -46,6 +54,6 @@ module.exports = (env, argv) => {
         },
         plugins: [
             new webpack.HotModuleReplacementPlugin()
-        ]
+        ],
     }
 }

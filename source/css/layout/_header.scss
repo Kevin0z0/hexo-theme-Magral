@@ -1,0 +1,52 @@
+.tippy-box[data-theme~='magral-right'] {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    border-radius: .7rem;
+    box-shadow: 0 .5rem 1rem 0 rgba(0, 0, 0, .08);
+    font-size: 1rem;
+    margin-left: -.5em;
+  }
+
+.header-big{
+    height: 24vh;
+    min-height: 13rem;
+    max-height: 23rem;
+    background-color: var(--bg-color);
+    display: flex;
+    width: 100%;
+    padding: 4rem;
+
+    &__left{
+        width: 4rem;
+        align-self: center;
+        & > a{
+            display: block;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--secondary-font-color);
+            text-align: center;
+            transition: .2s;
+            cursor: pointer;
+
+            &:last-child{
+                margin-bottom: 0;
+            }
+
+            &:hover{
+                color: var(--primary-font-color)
+            }
+        }
+    }
+
+    &__center{
+        &__name{
+            font-family: 'Times New Roman';
+            font-size: 4.8rem;
+            user-select: none;
+        }
+    }
+
+    &__right{
+        max-width: 4rem;
+    }
+}

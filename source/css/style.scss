@@ -1,3 +1,27 @@
+:root {
+    --primary-color: #{theme('primaryColor')};
+    --gradual-color: #{theme('gradualColor')};
+    --secondary-color: #{theme('secondaryColor')};
+    --contrast: #{theme('contrast')};
+    --contrast-secondary: #{theme('contrastSecondary')};
+    --bg-color: #{theme('background')};
+    --primary-font-color: #{theme('primaryFontColor')};
+    --secondary-font-color: #{theme('secondaryFontColor')};
+}
+
+@function getDark($name){
+    @return hexo_config('sass.dark.' + $name)
+}
+
+[theme=dark] {
+    --primary-color: #{getDark('primaryColor')};
+    --gradual-color: #{getDark('gradualColor')};
+    --secondary-color: #{getDark('secondaryColor')};
+    --contrast: #{getDark('contrast')};
+    --contrast-secondary: #{getDark('contrastSecondary')};
+    --bg-color: #{getDark('background')};
+}
+
 *,
 *::after,
 *::before {
@@ -11,6 +35,10 @@ html {
     box-sizing: border-box;
 }
 
+body{
+    background-color: theme('background');
+}
+
 a{
     text-decoration: none;
     color: #000;
@@ -19,3 +47,9 @@ a{
 ul{
     list-style: none;
 }
+
+footer{
+    background-color: theme('footer');
+}
+
+@import './layout/header';

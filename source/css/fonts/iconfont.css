@@ -1,0 +1,49 @@
+@font-face {
+  font-family: "iconfont"; /* Project id  */
+  src: url('iconfont.ttf?t=1661175912263') format('truetype');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-copy:before {
+  content: "\e706";
+}
+
+.icon-copyright:before {
+  content: "\e8ce";
+}
+
+.icon-user:before {
+  content: "\e7ae";
+}
+
+.icon-instagram:before {
+  content: "\e87f";
+}
+
+.icon-weixin:before {
+  content: "\e620";
+}
+
+.icon-search:before {
+  content: "\e741";
+}
+
+.icon-github:before {
+  content: "\e6f6";
+}
+
+.icon-sun:before {
+  content: "\e6d2";
+}
+
+.icon-url-line:before {
+  content: "\ea38";
+}
+
