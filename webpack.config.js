@@ -1,8 +1,10 @@
 const fs = require('fs')
 const path = require('path');
 const webpack = require('webpack');
+const { load } = require("js-yaml")
 
 const dir = path.resolve(__dirname,'./source/js/')
+const config = load(fs.readFileSync('./_config.yml', 'utf-8')) || {}
 
 function deleteMap(){
     fs.readdirSync(dir).forEach(function(item){
@@ -39,8 +41,8 @@ module.exports = (env, argv) => {
         },
         devServer: {
             liveReload: true,
-            port: 60002,
-            watchFiles: ['./dev', './source', './layout', './config.yml'],
+            port: config.devPort,
+            watchFiles: ['./dev', './source', './layout'],
             setupMiddlewares: (middlewares, devServer) => {
                 devServer.app.use("*", (req, res, next) => {
                     res.header("Access-Control-Allow-Credentials", "true")

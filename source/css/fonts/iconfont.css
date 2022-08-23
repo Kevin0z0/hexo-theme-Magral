@@ -1,6 +1,6 @@
 @font-face {
   font-family: "iconfont"; /* Project id  */
-  src: url('iconfont.ttf?t=1661175912263') format('truetype');
+  src: url('iconfont.ttf?t=1661264751401') format('truetype');
 }
 
 .iconfont {
@@ -39,8 +39,8 @@
   content: "\e6f6";
 }
 
-.icon-sun:before {
-  content: "\e6d2";
+.icon-Sun:before {
+  content: "\e65f";
 }
 
 .icon-url-line:before {

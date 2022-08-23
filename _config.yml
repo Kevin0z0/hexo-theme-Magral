@@ -1,20 +1,19 @@
 # Magral Theme Config
-title: Magral
+title: Magral Blog
 
 logo:
-  img:
+  img:  # image url
   name: Magral
 
 
-
-
-
-
-
-# 开发者模式
-dev: true
-
 version: 0.1.0
+
+# dev settings
+
+dev: true
+devPort: 60002
+
+# ---------- #
 
 
 sass:
@@ -61,3 +60,59 @@ icons:
   - icon: iconfont icon-weixin
     img: /medias/qrcode.jpg
     width: 10
+
+menu:
+  index:
+    name: Home
+    url: /
+  ctf:
+    name: CTF
+    url: /categories/ctf
+    children:
+      - name: WEB
+        url: /tags/web
+        icon: fab fa-edge
+      - name: MISC
+        url: /tags/misc
+        icon: fas fa-tools
+      - name: PWN
+        url: /tags/pwn
+        icon: fas fa-bomb
+      - name: CRYPTO
+        url: /tags/crypto
+        icon: fas fa-unlock
+      - name: REVERSE
+        url: /tags/reverse
+        icon: fas fa-terminal
+  programming:
+    name: Programming
+    url: /categories/编程
+    children:
+      - name: HTML
+        url: /tags/html
+        icon: fab fa-html5
+      - name: Python
+        url: /tags/python
+        icon: fab fa-python
+      - name: C++
+        url: /tags/c++
+        icon: fas fa-stream
+      - name: 算法
+        url: /tags/算法
+        icon: fas fa-brain
+  study:
+    name: Study
+    url: /categories/study
+    children:
+      - name: 操作系统
+        url: /tags/os
+        icon: fab fa-windows
+  contact:
+    name: Contact
+    url: /contact
+  friends:
+    name: Friends
+    url: /friends
+  about:
+    name: About
+    url: /about

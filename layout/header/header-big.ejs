@@ -2,13 +2,37 @@
     <div class="header-big__left">
         <% for(const i of theme.icons) {%>
             <a class="tippy-right <%=i.icon%>" data-tippy-placement="right"
-                data-tippy-content="<%=i.name ? i.name : `<img src=${i.img} ${i.width && "style='width:" + i.width + "rem'"}>`%>" 
+                data-tippy-content="<%=i.name ? i.name : `<img src='${i.img}' ${i.width && "style='width:" + i.width + "rem'"}>`%>" 
                 style="font-size: <%=i.size || 2%>rem;" <%=i.url && `href=${i.url} target=_blank`%>> 
             </a>
         <%}%>
     </div>
     <div class="header-big__center">
-        <a class="header-big__center__name" href="/"><%=theme.logo.name%></a>
+        <a class="header-big__center__name" href="/">
+            <% if(theme.logo.img) {%>
+                <img src="<%= theme.logo.img %>" />
+            <%}%>
+            <% if(theme.logo.name) {%>
+                <span><%=theme.logo.name%></span>
+            <%}%>
+        </a>
+        <ul class="header-big__center__list">
+            <% 
+                const menu = theme.menu
+                for(const key of Object.keys(menu)) {
+                    const item = menu[key]
+            %>
+                    <li>
+                        <a class="header-big__center__list-name" 
+                        href="<%= item.url || '/' %>">
+                            <%= item.name || key %><%-item.children && `<b>&nbsp;·</b>`%>
+                        </a>
+                    </li>
+            <% } %>
+        </ul>
     </div>
-    <div class="header-big__right"></div>
+    <div class="header-big__right">
+        <span class="iconfont icon-Sun"></span>
+        <span class="iconfont icon-search"></span>
+    </div>
 </div> 

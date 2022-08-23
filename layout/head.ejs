@@ -7,5 +7,8 @@
     <title><%= theme.title %></title>
     <%- theme.dev ? css('css/style') : css('css/prod_style') %>
     <%- css('css/fonts/iconfont')%>
+    <script>
+        window.menu = <%- JSON.stringify(theme.menu) %>
+    </script>
 </head>
 <body>
