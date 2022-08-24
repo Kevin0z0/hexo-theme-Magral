@@ -56,6 +56,6 @@ module.exports = (env, argv) => {
         },
         plugins: [
             new webpack.HotModuleReplacementPlugin()
-        ],
+        ]
     }
 }

@@ -5,7 +5,9 @@
   "scripts": {
     "pack": "webpack --mode production",
     "pack:dev": "webpack --mode development",
-    "dev": "webpack serve --config webpack.config.js --mode development"
+    "dev": "webpack-dev-server --mode development",
+    "serve": "cd ../../ && hexo server",
+    "start": "concurrently --kill-others \"npm run dev\" \"npm run serve\""
   },
   "author": "Kevin0z0",
   "license": "MIT",
@@ -14,6 +16,7 @@
     "@babel/preset-env": "^7.18.9",
     "@csstools/postcss-sass": "^5.0.1",
     "babel-loader": "^8.2.5",
+    "concurrently": "^7.3.0",
     "css-loader": "^6.7.1",
     "style-loader": "^3.3.1",
     "webpack": "^5.74.0",

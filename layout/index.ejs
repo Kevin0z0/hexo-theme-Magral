@@ -1,8 +1,16 @@
-<%-include("head.ejs")%>
+<%# include("head.ejs") %>
+<%- partial('head', {}, {cache: true}) %>
 <%- include("header/header-big.ejs") %> 
-
+<% 
+const recommendPosts = []
+site.posts.forEach(post => {
+    if (post.top) {
+        recommendPosts.push(post)
+    }
+})
+%> 
 <main class="main">
-    
+    <%- partial('partial/banner', {posts: recommendPosts}) %> 
 </main>
 
 <%-include("foot.ejs")%>
