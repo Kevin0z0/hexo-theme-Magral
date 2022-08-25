@@ -1,4 +1,5 @@
 import './icon'
+import LazyLoad from "vanilla-lazyload"
 
 const menu = document.getElementsByClassName("header-big__center__list-name")
 for(const i of menu){
@@ -8,3 +9,7 @@ for(const i of menu){
         i.setAttribute('style', "color: var(--primary-color)")
     }
 }
+
+const lazyLoadInstance = new LazyLoad({
+    container: document.getElementById("main")
+});

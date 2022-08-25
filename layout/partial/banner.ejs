@@ -1,1 +1,27 @@
-<a><% console.log(posts) %></a>
+<div class="banner">
+    <div class="banner__main">
+        <div class="banner__main__img" style="background-image:url(<%= 
+            partial('../utils/functions', {
+                args:posts[0].img,
+                func: 'fillPath'
+            }) 
+        %>)" >
+    </div>
+    <div class="banner__side">
+
+    </div>
+</div>
+
+<!-- [1] [
+[1]   'title',     'author',      'img',
+[1]   'date',      'summary',     'cover',
+[1]   'top',       'toc',         '_content',
+[1]   'source',    'raw',         'slug',
+[1]   'published', 'updated',     'comments',
+[1]   'layout',    'photos',      'link',
+[1]   '_id',       'content',     'site',
+[1]   'excerpt',   'more',        'path',
+[1]   'permalink', 'full_source', 'asset_dir',
+[1]   'tags',      'categories',  'prev',
+[1]   'next',      '__post'
+[1] ] -->
