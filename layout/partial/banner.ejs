@@ -1,15 +1,27 @@
 <div class="banner">
-    <div class="banner__main">
-        <div class="banner__main__img" style="background-image:url(<%= 
-            partial('../utils/functions', {
-                args:posts[0].img,
-                func: 'fillPath'
-            }) 
-        %>)" >
+    <div class="banner__main" <%= posts.length === 1 && 'style="width:100%"' %>>
+        <div class="banner__main__pic">
+            <div class="banner__main__wrap">
+                <a class="banner__main__wrap-title" href="<%= getUrl(posts[0].permalink) %>"><%= posts[0].title %></a>
+                <div class="banner__main__wrap-info">
+                    <span><%=theme.author%></span> 
+                    <span class="banner__main__wrap-sep">·</span>
+                    <span><%=date(posts[0].date, theme.dateFormat)%></span>
+                </div>
+            </div>
+            <div class="banner__main__img" style="background-image:url('<%= fillPath(posts[0].img) %>')"></div>
+        </div>
     </div>
+    <%if(posts.length > 1){%>
     <div class="banner__side">
-
+        <%for(let i = 1; i < posts.length; i++) {%>
+            <div class='banner__side__img' style="background-image:url('<%= fillPath(posts[i].img) %>');height: <%= (100 / (posts.length - 1)) %>%; z-index: <%=i%>">
+            
+            
+            </div>
+        <%}%> 
     </div>
+    <% } %>
 </div>
 
 <!-- [1] [

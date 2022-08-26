@@ -1,5 +1,8 @@
 # Magral Theme Config
 title: Magral Blog
+author: Kevin。
+
+dateFormat: YYYY, MMM DD
 
 logo:
   img:  # image url
