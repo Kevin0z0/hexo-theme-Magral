@@ -1,13 +1,13 @@
 <div class="banner">
     <div class="banner__main" <%= posts.length === 1 && 'style="width:100%"' %>>
-        <% if(posts.length > 1){%>
-            <div class="banner__main__dot">
-            <% for(let i = 0; i < posts.length; i++){ %>
-                <span data-index="<%=i%>" <%=!i && 'class=banner__main__dot-active' || ""%>></span>
-            <% } %>
-            </div>
-        <% } %> 
         <div class="banner__main__pic">
+            <% if(posts.length > 1){%>
+                <div class="banner__main__dot">
+                <% for(let i = 0; i < posts.length; i++){ %>
+                    <span data-index="<%=i%>" <%=!i && 'class=banner__main__dot-active' || ""%>></span>
+                <% } %>
+                </div>
+            <% } %> 
             <div class="banner__main__wrap">
                 <a class="banner__main__wrap-title" href="<%= fillPath(posts[0].path) %>"><%= posts[0].title %></a>
                 <div class="banner__main__wrap-info clearfix">
