@@ -8,11 +8,11 @@ class CompilePlugin {
   
     apply(compiler) {
         compiler.hooks.compilation.tap(PLUGIN_NAME, (compilation) => {
-            const modifiedModules = []
+            const modifiedModules = new Set()
             const tapCallback = (_, normalModule) => {
                 const userRequest = normalModule.userRequest.replace(/\\/g, '/') || '';
                 if(!/dev\/layout\/.*.js$/.test(userRequest)) return
-                if (modifiedModules.includes(userRequest)) return
+                if (modifiedModules.has(userRequest)) return
                 normalModule.loaders = [
                     {
                         loader: require.resolve('./load'),
@@ -22,7 +22,7 @@ class CompilePlugin {
                     }
                 ]
 
-                modifiedModules.push(userRequest)
+                modifiedModules.add(userRequest)
             }
             NormalModule.getCompilationHooks(compilation).beforeLoaders.tap(
                 PLUGIN_NAME,
