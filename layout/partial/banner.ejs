@@ -1,12 +1,27 @@
 <div class="banner">
     <div class="banner__main" <%= posts.length === 1 && 'style="width:100%"' %>>
+        <% if(posts.length > 1){%>
+            <div class="banner__main__dot">
+            <% for(let i = 0; i < posts.length; i++){ %>
+                <span data-index="<%=i%>" <%=!i && 'class=banner__main__dot-active' || ""%>></span>
+            <% } %>
+            </div>
+        <% } %> 
         <div class="banner__main__pic">
             <div class="banner__main__wrap">
-                <a class="banner__main__wrap-title" href="<%= getUrl(posts[0].permalink) %>"><%= posts[0].title %></a>
-                <div class="banner__main__wrap-info">
-                    <span><%=theme.author%></span> 
-                    <span class="banner__main__wrap-sep">·</span>
-                    <span><%=date(posts[0].date, theme.dateFormat)%></span>
+                <a class="banner__main__wrap-title" href="<%= fillPath(posts[0].path) %>"><%= posts[0].title %></a>
+                <div class="banner__main__wrap-info clearfix">
+                    <div class="banner__main__wrap-info-left">
+                        <span><%=theme.author%></span> 
+                        <span class="banner__main__wrap-sep">·</span>
+                        <span><%=date(posts[0].date, theme.dateFormat)%></span>
+                    </div>
+                    <div class="banner__main__wrap-info-right">
+                        <% let flag = true
+                            for(const i of posts[0].tags.data) {%>
+                            <%- partial('partial/tag', {info: i, hover: flag}) %>   
+                        <% flag = false } %>
+                    </div>
                 </div>
             </div>
             <div class="banner__main__img" style="background-image:url('<%= fillPath(posts[0].img) %>')"></div>
@@ -14,10 +29,17 @@
     </div>
     <%if(posts.length > 1){%>
     <div class="banner__side">
-        <%for(let i = 1; i < posts.length; i++) {%>
-            <div class='banner__side__img' style="background-image:url('<%= fillPath(posts[i].img) %>');height: <%= (100 / (posts.length - 1)) %>%; z-index: <%=i%>">
-            
-            
+        <%for(let i = 1; i < posts.length; i++) {
+            const item = posts[i]%>
+            <div class='banner__side__pic' style="height: <%= (100 / (posts.length - 1)) %>%; z-index: <%=i%>" 
+                data-time="<%=date(item.date, theme.dateFormat)%>" 
+                data-author="<%=theme.author%>"
+                data-tags="<%=JSON.stringify(item.tags.data.map(v=>{return {name: v.name, path: fillPath(v.path)}}))%>"
+                >
+                <a class="banner__side__title" href="<%=fillPath(item.path)%>">
+                    <%= item.title %>
+                </a>
+                <div class="banner__side__img" style="background-image:url('<%= fillPath(item.img) %>')"></div>
             </div>
         <%}%> 
     </div>

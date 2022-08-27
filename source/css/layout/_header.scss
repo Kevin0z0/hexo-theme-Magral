@@ -133,16 +133,47 @@ $margin-lr: 10rem;
     &__main{
         height: 100%;
         width: 70%;
+        position: relative;
 
         &__pic{
+            border-radius: $radius;
             width: 100%;
             height: 100%;
-            box-shadow: 0 3rem 6rem rgba(0,0,0,0.2);
+            box-shadow: 0 3rem 4rem rgba(0,0,0,0.2);
             transition: .4s;
             &:hover{
                 transform: scale(1.01);
             }
             position: relative;
+            
+        }
+
+        &__dot{
+            $dot-size: .7rem;
+            position: absolute;
+            z-index: 2;
+            right: 1.2rem;
+            top: 0.6rem;
+            cursor: default;
+            user-select: none;
+
+            &-active{
+                background-color: #fff !important;
+            }
+
+            span{
+                display: inline-block;
+                width: $dot-size;
+                height: $dot-size;
+                background-color: rgba(255,255,255, .7);
+                border-radius: 1rem;
+                margin-left: .4rem;
+                cursor: pointer;
+                transition: .2s;
+                &:hover{
+                    background-color: #fff;
+                }
+            }
         }
 
         &__img{
@@ -163,6 +194,7 @@ $margin-lr: 10rem;
             color: #fff;
 
             &-title{
+                max-width: 100%;
                 font-size: 5rem;
                 color: #fff;
                 font-weight: 900;
@@ -178,6 +210,25 @@ $margin-lr: 10rem;
 
             &-info{
                 font-size: 1.6rem;
+                &-left{
+                    line-height: 2.5rem;
+                    float: left;
+                    color: rgba(255,255,255,.7);
+                    & > span{
+                        transition: $color-transition;
+                        cursor: default;
+                        &:hover{
+                            color: #FFF;
+                        }
+                    }
+                }
+
+                &-right{
+                    float: right;
+                    .tag{
+                        margin-left: .4rem;
+                    }
+                }
 
             }
 
@@ -194,17 +245,44 @@ $margin-lr: 10rem;
         display: flex;
         flex-direction: column;
         gap: 4rem;
+        &__pic{
+            width: 100%;
+            height: 100%;
+            border-radius: $radius;
+            transition: .4s;
+            position: relative;
+            &:hover{
+                transform: scale(1.01);
+                box-shadow: 0 3rem 4rem rgba(0,0,0,0.2);
+                .banner__side__img{
+                    filter: brightness(70%);
+                }
+            }
+        }
+
         &__img{
             width: 100%;
             height: 100%;
             @include cover;
             border-radius: $radius;
-            transition: .4s;
             position: relative;
-            // filter: brightness(70%);
+            z-index: -1;
+            transition: .2s;
+        }
+
+        &__title{
+            margin: 1rem 2rem;
+            position: absolute;
+            bottom: 1rem;
+            color: #FFF;
+            font-size: 2.6rem;
+            @include ellipsis(1);
+            max-width: calc(100% - 4rem);
+            border-bottom: .2rem solid transparent;
+            line-height: 3rem;
+            @include ellipsis(1);
             &:hover{
-                transform: scale(1.01);
-                box-shadow: 0 3rem 6rem rgba(0,0,0,0.2);
+                border-bottom: .2rem solid #fff;
             }
         }
     }

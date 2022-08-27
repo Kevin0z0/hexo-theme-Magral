@@ -5,9 +5,9 @@
   "scripts": {
     "pack": "webpack --mode production",
     "pack:dev": "webpack --mode development",
-    "dev": "webpack-dev-server --mode development",
+    "start": "webpack-dev-server --mode development",
     "serve": "cd ../../ && hexo server",
-    "start": "concurrently --kill-others \"npm run dev\" \"npm run serve\""
+    "dev": "concurrently --kill-others \"npm run start\" \"npm run serve\""
   },
   "author": "Kevin0z0",
   "license": "MIT",

@@ -53,6 +53,7 @@ footer{
 }
 
 $radius: 1.5rem;
+@import './global';
 @import './abstracts/mixins';
 @import './layout/header';
 @import './layout/home/main';

@@ -2,6 +2,7 @@ const fs = require('fs')
 const path = require('path');
 const webpack = require('webpack');
 const { load } = require("js-yaml")
+const CompilePlugin = require('./webpack/plugin/compile')
 
 const dir = path.resolve(__dirname,'./source/js/')
 const config = load(fs.readFileSync('./_config.yml', 'utf-8')) || {}
@@ -33,7 +34,7 @@ module.exports = (env, argv) => {
               {
                 test: /\.css$/i,
                 use: ["style-loader", "css-loader"],
-              },
+              }
             ],
           },
         resolve: {
@@ -55,7 +56,8 @@ module.exports = (env, argv) => {
             }
         },
         plugins: [
-            new webpack.HotModuleReplacementPlugin()
+            new webpack.HotModuleReplacementPlugin(),
+            new CompilePlugin()
         ]
     }
 }

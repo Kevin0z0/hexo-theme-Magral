@@ -1,0 +1,33 @@
+@mixin gradient {
+    background: var(--primary-color);
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--gradual-color) 100%);
+    color: #FFF;
+}
+
+.tag{
+    padding: 0.4rem 0.8rem;
+    background: var(--secondary-color);
+    border-radius: 0.7rem;
+    display: inline-block;
+    transition: .1s;
+    color: var(--primary-color);
+    transform: scale(.85);
+    font-size: 1rem;
+
+    &:hover{
+        @include gradient;
+    }
+
+    &__hover{
+        @include gradient;
+    }
+}
+
+.clearfix {
+    clear:both;
+    &::after {
+        content: "";
+        clear: both;
+        display: table;
+      }
+}

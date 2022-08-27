@@ -7,5 +7,3 @@ tippy('.tippy-right', {
   allowHTML: true,
   // trigger: 'click'
 })
-
-console.log(window.menu);
