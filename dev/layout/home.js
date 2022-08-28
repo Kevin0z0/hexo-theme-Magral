@@ -14,3 +14,5 @@ for(const i of menu){
 const lazyLoadInstance = new LazyLoad({
     container: document.getElementById("main")
 });
+
+let currentBannerIndex = 0

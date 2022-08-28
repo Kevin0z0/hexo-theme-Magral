@@ -31,11 +31,7 @@
     <div class="banner__side">
         <%for(let i = 1; i < posts.length; i++) {
             const item = posts[i]%>
-            <div class='banner__side__pic' style="height: <%= (100 / (posts.length - 1)) %>%; z-index: <%=i%>" 
-                data-time="<%=date(item.date, theme.dateFormat)%>" 
-                data-author="<%=theme.author%>"
-                data-tags="<%=JSON.stringify(item.tags.data.map(v=>{return {name: v.name, path: fillPath(v.path)}}))%>"
-                >
+            <div class='banner__side__pic' style="height: <%= (100 / (posts.length - 1)) %>%; z-index: <%=i%>" >
                 <a class="banner__side__title" href="<%=fillPath(item.path)%>">
                     <%= item.title %>
                 </a>

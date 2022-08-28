@@ -25,6 +25,7 @@ sass:
   prefix: prod_
   theme: light
   autoprefixer: true
+  sourceMap: true
 
   light:
     background: '#FFF'
@@ -63,6 +64,8 @@ icons:
   - icon: iconfont icon-weixin
     img: /medias/qrcode.jpg
     width: 10
+
+    
 
 menu:
   index:

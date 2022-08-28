@@ -1,5 +1,4 @@
 <%# include("head.ejs") %>
-<%- partial('head', {}, {cache: true}) %>
 <% 
 
 const recommendPosts = []
@@ -9,7 +8,17 @@ site.posts.forEach(post => {
         return
     }
 })
-%> 
+
+const bannerInfo = recommendPosts.map(v=>{
+    return {
+        date: date(v.date, theme.dateFormat),
+        tags: v.tags.data.map(a=>{return {name: a.name, path: fillPath(a.path)}}),
+        path: fillPath(v.path),
+    }
+})
+%>
+<%- partial('head', {jsVar: {bannerInfo}}, {cache: true}) %>
+
 <header>
     <%- include("header/header-big.ejs") %> 
     <%- partial('partial/banner', {posts: recommendPosts}) %> 
