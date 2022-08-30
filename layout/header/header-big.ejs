@@ -22,12 +22,12 @@
                 for(const key of Object.keys(menu)) {
                     const item = menu[key]
             %>
-                    <li>
-                        <a class="header-big__center__list-name" 
-                        href="<%= item.url || '/' %>">
-                            <%= item.name || key %><%-item.children && `<b>&nbsp;·</b>`%>
-                        </a>
-                    </li>
+                <li>
+                    <a class="header-big__center__list-name" 
+                    href="<%= item.url || '/' %>">
+                        <%= item.name || key %><%-item.children && `<b>&nbsp;·</b>`%>
+                    </a>
+                </li>
             <% } %>
         </ul>
     </div>

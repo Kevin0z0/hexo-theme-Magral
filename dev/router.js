@@ -1,8 +1,11 @@
-import home from './layout/home'
-
 function isRegExp(value) {
     return Object.prototype.toString.call(value) === '[object RegExp]'
 }
+
+function isPromise(value) {
+    return Object.prototype.toString.call(value) === '[object Promise]'
+}
+
 
 class Router{
     constructor(routes){
@@ -20,16 +23,18 @@ class Router{
         for(let i = 0; i < this.__routes.length; i++){
             const route = this.__routes[i]
             if(this.testPath(route.path)){
-                route.layout(this)
+                const temp = route.layout(this)
+                if(isPromise(temp)) temp.then(v=>{v.default(this)})
                 break
             }
         }
     }
 
-    to(name){
+    to(name, cb){
         for(let i = 0; i < this.__routes.length; i++){
             const route = this.__routes[i]
             if(route.path === name || route.name === name){
+                cb && cb()
                 window.location = route.path
             }
         }
@@ -40,6 +45,6 @@ new Router([
     {
         name: "index",
         path: '/',
-        layout: home
+        layout: () => import('./layout/home')
     }
 ])

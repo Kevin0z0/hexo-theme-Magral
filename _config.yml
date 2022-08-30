@@ -23,9 +23,10 @@ sass:
   compressed: true
   save: false
   prefix: prod_
-  theme: light
   autoprefixer: true
   sourceMap: true
+
+  theme: light
 
   light:
     background: '#FFF'
@@ -40,9 +41,6 @@ sass:
 
     primaryFontColor: '#414141'
     secondaryFontColor: '#A9A9A9'
-
-    
-
 
   dark:
     background: "#000"

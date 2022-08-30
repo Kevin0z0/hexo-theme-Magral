@@ -1,6 +1,6 @@
 <div class="banner">
     <div class="banner__main" <%= posts.length === 1 && 'style="width:100%"' %>>
-        <div class="banner__main__pic">
+        <div class="banner__main__pic" id="banner-pic">
             <% if(posts.length > 1){%>
                 <div class="banner__main__dot">
                 <% for(let i = 0; i < posts.length; i++){ %>
@@ -8,7 +8,7 @@
                 <% } %>
                 </div>
             <% } %> 
-            <div class="banner__main__wrap">
+            <div class="banner__main__wrap" id="banner-wrap">
                 <a class="banner__main__wrap-title" href="<%= fillPath(posts[0].path) %>"><%= posts[0].title %></a>
                 <div class="banner__main__wrap-info clearfix">
                     <div class="banner__main__wrap-info-left">
@@ -25,6 +25,8 @@
                 </div>
             </div>
             <div class="banner__main__img" style="background-image:url('<%= fillPath(posts[0].img) %>')"></div>
+            <span class="banner__main__arrow iconfont icon-cc-arrow-left arrow-left" id="banner-arrow-left"></span>
+            <span class="banner__main__arrow iconfont icon-cc-arrow-right arrow-right" id="banner-arrow-right"></span>
         </div>
     </div>
     <%if(posts.length > 1){%>

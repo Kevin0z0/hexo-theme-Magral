@@ -133,6 +133,32 @@ $margin-lr: 10rem;
     &__main{
         height: 100%;
         width: 70%;
+        position: relative;
+
+        &__arrow{
+            @include center('y');
+            color: rgba(255,255,255,.6);
+            font-size: 4.5rem !important;
+            margin: 0 2rem;
+            padding: 1rem;
+            cursor: pointer;
+            transition: .4s transform, .2s color;
+            transition-delay: .2s, 0s;
+
+            &:hover{
+                color: #fff;
+            }
+        }
+
+        .arrow-left{
+            left: 0;
+            transform: translateX(-8rem);
+        }
+
+        .arrow-right{
+            right: 0;
+            transform: translateX(8rem);
+        }
 
         &__pic{
             border-radius: $radius;
@@ -140,11 +166,21 @@ $margin-lr: 10rem;
             height: 100%;
             box-shadow: 0 3rem 4rem rgba(0,0,0,0.2);
             transition: .4s;
+            overflow: hidden;
+
             &:hover{
                 transform: scale(1.01);
                 .banner__main__dot{
                     top: .55rem !important;
                     right: 1.15rem !important;
+                }
+
+                .arrow-right{
+                    transform: translateX(0);
+                }
+
+                .arrow-left{
+                    transform: translateX(0);
                 }
             }
             position: relative;
@@ -179,13 +215,19 @@ $margin-lr: 10rem;
             }
         }
 
-        &__img{
+        &__img, &__img-next{
             @include cover;
             width: 100%;
             height: 100%;
             border-radius: $radius;
             filter: brightness(70%);
-            position: inherit;
+            position: absolute;
+            z-index: -1;
+        }
+
+        &__img-next{
+            bottom: 0;
+            right: calc(-100%);
         }
 
         &__wrap{

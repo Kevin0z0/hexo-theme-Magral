@@ -43,7 +43,7 @@ module.exports = (env, argv) => {
         devServer: {
             liveReload: true,
             port: config.devPort,
-            watchFiles: ['./dev', './source', './layout'],
+            watchFiles: ['./dev', './source', './layout', /^(?!\.map)/],
             setupMiddlewares: (middlewares, devServer) => {
                 devServer.app.use("*", (req, res, next) => {
                     res.header("Access-Control-Allow-Credentials", "true")

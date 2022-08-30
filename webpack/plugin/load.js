@@ -11,6 +11,7 @@ module.exports = function(source) {
             break
         }
     }
+    
     const compiled = `${source.substring(0, pos)}\nexport default function(router){${source.substring(pos)}\n}`
     return compiled
 };
