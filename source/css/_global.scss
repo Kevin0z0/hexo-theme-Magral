@@ -1,4 +1,4 @@
-@mixin gradient {
+@mixin tag-gradient {
     background: var(--primary-color);
     background: linear-gradient(135deg, var(--primary-color) 0%, var(--gradual-color) 100%);
     color: #FFF;
@@ -15,11 +15,11 @@
     font-size: 1rem;
 
     &:hover{
-        @include gradient;
+        @include tag-gradient;
     }
 
     &__hover{
-        @include gradient;
+        @include tag-gradient;
     }
 }
 

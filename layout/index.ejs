@@ -12,9 +12,10 @@ site.posts.forEach(post => {
 const bannerInfo = recommendPosts.map(v=>{
     return {
         date: date(v.date, theme.dateFormat),
-        tags: v.tags.data.map(a=>{return {name: a.name, path: fillPath(a.path)}}),
+        tags: v.tags && v.tags.data.map(a=>{return {name: a.name, path: fillPath(a.path)}}) || [],
         path: fillPath(v.path),
-        img: v.img
+        img: v.img,
+        title: v.title
     }
 })
 %>

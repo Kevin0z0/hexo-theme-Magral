@@ -3,3 +3,6 @@ export const fillPath = (path) => {
     return path
 }
 
+export const isNumber = (val) => {
+    return typeof val === 'number'
+}
