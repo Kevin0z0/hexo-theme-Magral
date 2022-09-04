@@ -1,0 +1,13 @@
+$footer-margin: 1rem;
+
+.footer{
+    width: calc(100% - $footer-margin * 2);
+    margin: 0 auto $footer-margin;
+    padding: 4rem 3rem;
+    text-align: center;
+    background-color: theme('primaryColor');
+    height: 20rem;
+    border-radius: 1.5rem;
+
+    
+}

@@ -1,5 +1,5 @@
 import anime from 'animejs/lib/anime.es.js';
-import {fillPath, isNumber} from '../../utils/functions'
+import {fillPath} from '../../utils/functions'
 
 const bannerWrap = document.getElementById("banner-wrap")
 const bannerArrowLeft = document.getElementById("banner-arrow-left")
@@ -89,10 +89,17 @@ const active = (index) => {
     bannerListDot[index].className = 'banner__main__dot-item banner__main__dot-active'
 }
 
+let autoScrollTimeout = 0
+
+
 const bannerAnime = (addNum, symbol) => {
     if(timeout) {
         if(bannerCount) return
         return bannerCount++
+    }
+    if(autoScrollTimeout) {
+        clearInterval(autoScrollTimeout)
+        autoScrollTimeout = 0
     }
     const len = bannerInfo.length
     const imgBox = document.createElement('div')
@@ -152,12 +159,21 @@ const bannerAnime = (addNum, symbol) => {
                     complete(){
                         if(bannerCount) return runNext()
                         timeout = 0
+                        autoScroll()
                     }
                 })  
             }
         })
     }, 25)
 }
+
+const autoScroll = () => {
+    autoScrollTimeout = setInterval(()=>{
+        bannerAnime(1, 1)
+    }, 5000)
+}
+
+autoScroll()
 
 bannerArrowRight.addEventListener('mousedown', () => {
     bannerAnime(1, 1)
@@ -167,6 +183,12 @@ bannerArrowLeft.addEventListener('mousedown', () => {
     bannerAnime(1, -1)
 })
 
-setInterval(()=>{
-    bannerAnime(1, 1)
-}, 6000)
+
+window.addEventListener("visibilitychange", () =>{
+    if(document.visibilityState === 'hidden' && autoScrollTimeout){
+        clearInterval(autoScrollTimeout)
+        autoScrollTimeout = 0
+        return
+    }
+    autoScroll()
+})

@@ -11,6 +11,6 @@ export const isRegExp = (value) => {
     return Object.prototype.toString.call(value) === '[object RegExp]'
 }
 
- export const isPromise = (value) => {
+export const isPromise = (value) => {
     return Object.prototype.toString.call(value) === '[object Promise]'
 }
