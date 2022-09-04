@@ -1,21 +1,5 @@
-import '../components/icon'
-import LazyLoad from "vanilla-lazyload"
 import anime from 'animejs/lib/anime.es.js';
-import {fillPath, isNumber} from '../utils/functions'
-
-
-const menu = document.getElementsByClassName("header-big__center__list-name")
-for(const i of menu){
-    let href = i.getAttribute('href')
-    if(!href.endsWith('/')) href += '/'
-    if(href === decodeURIComponent(window.location.pathname)){
-        i.setAttribute('style', "color: var(--primary-color)")
-    }
-}
-
-const lazyLoadInstance = new LazyLoad({
-    container: document.getElementById("main")
-});
+import {fillPath, isNumber} from '../../utils/functions'
 
 const bannerWrap = document.getElementById("banner-wrap")
 const bannerArrowLeft = document.getElementById("banner-arrow-left")
@@ -55,44 +39,78 @@ const replaceBannerMainContent = (index) => {
 let bannerCount = 0
 
 let timeout
-let bannerSideIndex = 0
+const imgData = bannerInfo.map(v=>v.img)
 
 const sideAnime = (element, index) => {
     const oldImg = element.getElementsByClassName('banner__side__img')[0]
     const img = document.createElement('div')
-    img.style = `background-image: url('${fillPath(bannerInfo[index].img)}')`
+    const title = element.getElementsByClassName('banner__side__title')[0]
+    img.style = `background-image: url('${fillPath(imgData[index])}')`
     img.className = 'banner__side__img'
     element.appendChild(img)
+
+    anime({
+        targets: title,
+        easing: 'linear',
+        opacity: 0,
+        duration: 200
+    })
     anime({
         targets: oldImg,
         easing: 'easeOutQuad',
         duration: 400,
         marginTop: `-${oldImg.offsetHeight}`,
         complete(){
+            title.innerText = bannerInfo[index].title
+            title.setAttribute("href", bannerInfo[index].path)
             element.removeChild(oldImg)
+
+            anime({
+                targets: title,
+                easing: 'linear',
+                opacity: 1,
+                duration: 200
+            })
         }
     })
 }
 
 const calcIndex = (index, all) => {
-    if(index >= 0) return index
-    return all + index
+    if(index < 0) return (all + index) % all
+    return index % all
 }
-let test = 0
-const bannerAnime = (addNum) => {
-    if(timeout) return bannerCount++
+const bannerListDot = document.getElementsByClassName('banner__main__dot-item')
+const above = symbol => symbol > 0
+
+let listDotIndex = 0
+const active = (index) => {
+    bannerListDot[listDotIndex].className = 'banner__main__dot-item'
+    listDotIndex = index
+    bannerListDot[index].className = 'banner__main__dot-item banner__main__dot-active'
+}
+
+const bannerAnime = (addNum, symbol) => {
+    if(timeout) {
+        if(bannerCount) return
+        return bannerCount++
+    }
     const len = bannerInfo.length
     const imgBox = document.createElement('div')
-    const nextBanner = (currentBannerIndex + addNum) % len
+    const nextBanner = calcIndex(currentBannerIndex + addNum * symbol, len)
     const bannerMainImg = document.getElementsByClassName('banner__main__img')[0]
-    imgBox.style = `background-image: url('${fillPath(bannerInfo[nextBanner].img)}')`
-    imgBox.className = 'banner__main__img-next'
+    imgBox.style = `background-image: url('${fillPath(imgData[nextBanner])}')`
+    imgBox.className = 'banner__main__img-' + (above(symbol) ? "next" : "prev")
     bannerPic.appendChild(imgBox)
 
-    bannerSideIndex = (bannerSideIndex + addNum) % (len - 1)
-    sideAnime(sideBanner[test++ % (len - 1)], calcIndex(nextBanner-1, len))
 
+    for(let i = 0; i < sideBanner.length; i++){
+        if(sideBanner[i].getElementsByClassName('banner__side__img')[0].getAttribute('style').includes(imgData[nextBanner]))
+        sideAnime(sideBanner[i], currentBannerIndex)
+    }
+    
+    active(nextBanner)
     currentBannerIndex = nextBanner
+    
     anime({
         targets: bannerWrap,
         easing: 'linear',
@@ -102,7 +120,7 @@ const bannerAnime = (addNum) => {
 
     anime({
         targets: bannerMainImg,
-        translateX: '-100%',
+        translateX: (above(symbol) ? '-' : "") + '100%',
         easing: 'easeOutQuad',
         duration: 500
     })
@@ -111,23 +129,20 @@ const bannerAnime = (addNum) => {
         const temp = bannerCount
         bannerCount = 0
         timeout = 0
-        bannerAnime(temp)
+        bannerAnime(temp, symbol)
     }
 
     timeout = setTimeout(()=>{
         anime({
             targets: imgBox,
-            translateX: '-100%',
+            translateX: (above(symbol) ? '-' : "") + '100%',
             easing: 'easeOutQuad',
             duration: 500,
             complete(){
                 imgBox.className = 'banner__main__img'
                 imgBox.style.transform = ''
                 bannerPic.removeChild(bannerMainImg)
-                if(bannerCount) {
-                    // for()
-                    return runNext()
-                }
+                if(bannerCount) return runNext()
                 replaceBannerMainContent(nextBanner)
                 anime({
                     targets: bannerWrap,
@@ -137,14 +152,6 @@ const bannerAnime = (addNum) => {
                     complete(){
                         if(bannerCount) return runNext()
                         timeout = 0
-                        const imgList = []
-                        imgList.add(imgBox.getAttribute('style'))
-                        for(const i of sideBanner){
-                            const data = i.getElementsByClassName('banner__side__img')[0].getAttribute('style')
-                            if(imgList.has(data)){
-                                // sideAnime(i, )
-                            }
-                        }
                     }
                 })  
             }
@@ -152,7 +159,14 @@ const bannerAnime = (addNum) => {
     }, 25)
 }
 
-bannerArrowRight.addEventListener('click', () => {
-    bannerAnime(1)
+bannerArrowRight.addEventListener('mousedown', () => {
+    bannerAnime(1, 1)
 })
 
+bannerArrowLeft.addEventListener('mousedown', () => {
+    bannerAnime(1, -1)
+})
+
+setInterval(()=>{
+    bannerAnime(1, 1)
+}, 6000)

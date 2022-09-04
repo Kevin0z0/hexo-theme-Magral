@@ -6,3 +6,11 @@ export const fillPath = (path) => {
 export const isNumber = (val) => {
     return typeof val === 'number'
 }
+
+export const isRegExp = (value) => {
+    return Object.prototype.toString.call(value) === '[object RegExp]'
+}
+
+ export const isPromise = (value) => {
+    return Object.prototype.toString.call(value) === '[object Promise]'
+}

@@ -1,11 +1,4 @@
-function isRegExp(value) {
-    return Object.prototype.toString.call(value) === '[object RegExp]'
-}
-
-function isPromise(value) {
-    return Object.prototype.toString.call(value) === '[object Promise]'
-}
-
+import {isPromise, isRegExp} from './utils/functions'
 
 class Router{
     constructor(routes){
@@ -45,6 +38,6 @@ new Router([
     {
         name: "index",
         path: '/',
-        layout: () => import('./layout/home')
+        layout: () => import('./layout/home/home')
     }
 ])

@@ -125,7 +125,7 @@ $margin-lr: 10rem;
 .banner{
     width: calc(100% - 2 * $margin-lr);
     margin: 0 $margin-lr;
-    padding: 5rem 0 7rem;
+    padding: 4rem 0 6rem;
     border-top: 0.1rem solid #EDEDED;
     height: 100%;
     display: flex;
@@ -207,15 +207,15 @@ $margin-lr: 10rem;
                 background-color: rgba(255,255,255, .7);
                 border-radius: 1rem;
                 margin-left: .4rem;
-                cursor: pointer;
+                // cursor: pointer;
                 transition: .2s;
-                &:hover{
-                    background-color: #fff;
-                }
+                // &:hover{
+                    // background-color: #fff;
+                // }
             }
         }
 
-        &__img, &__img-next{
+        &__img, &__img-next, &__img-prev{
             @include cover;
             width: 100%;
             height: 100%;
@@ -223,11 +223,15 @@ $margin-lr: 10rem;
             filter: brightness(70%);
             position: absolute;
             z-index: -1;
+            bottom: 0;
         }
 
         &__img-next{
-            bottom: 0;
-            right: calc(-100%);
+            right: -100%;
+        }
+
+        &__img-prev{
+            left: -100%;
         }
 
         &__wrap{

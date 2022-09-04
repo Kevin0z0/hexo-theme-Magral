@@ -4,7 +4,7 @@
             <% if(posts.length > 1){%>
                 <div class="banner__main__dot">
                 <% for(let i = 0; i < posts.length; i++){ %>
-                    <span data-index="<%=i%>" <%=!i && 'class=banner__main__dot-active' || ""%>></span>
+                    <span data-index="<%=i%>" class="<%-!i && "banner__main__dot-item banner__main__dot-active" || "banner__main__dot-item"%>"></span>
                 <% } %>
                 </div>
             <% } %> 
@@ -24,7 +24,7 @@
                     </div>
                 </div>
             </div>
-            <div class="banner__main__img" style="background-image:url('<%= fillPath(posts[0].img) %>')"></div>
+            <div class="banner__main__img" style="background-image: url('<%= fillPath(posts[0].img) %>')"></div>
             <span class="banner__main__arrow iconfont icon-cc-arrow-left arrow-left" id="banner-arrow-left"></span>
             <span class="banner__main__arrow iconfont icon-cc-arrow-right arrow-right" id="banner-arrow-right"></span>
         </div>
@@ -37,14 +37,14 @@
                 <a class="banner__side__title" href="<%=fillPath(item.path)%>">
                     <%= item.title %>
                 </a>
-                <div class="banner__side__img" style="background-image:url('<%= fillPath(item.img) %>')"></div>
+                <div class="banner__side__img" style="background-image: url('<%= fillPath(item.img) %>')"></div>
             </div>
         <%}%> 
     </div>
     <% } %>
 </div>
 
-<!-- [1] [
+<%#-- [1] [
 [1]   'title',     'author',      'img',
 [1]   'date',      'summary',     'cover',
 [1]   'top',       'toc',         '_content',
@@ -56,4 +56,4 @@
 [1]   'permalink', 'full_source', 'asset_dir',
 [1]   'tags',      'categories',  'prev',
 [1]   'next',      '__post'
-[1] ] -->
+[1] ] --%>

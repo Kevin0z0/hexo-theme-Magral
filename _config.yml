@@ -23,7 +23,7 @@ sass:
   compressed: true
   save: false
   prefix: prod_
-  autoprefixer: true
+  autoprefixer: false
   sourceMap: true
 
   theme: light
