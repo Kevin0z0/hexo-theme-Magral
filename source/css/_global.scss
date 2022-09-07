@@ -23,6 +23,50 @@
     }
 }
 
+.tippy-box[data-theme~='magral-right'], .tippy-box[data-theme~='magral-top'] {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    border-radius: .7rem;
+    box-shadow: 0 .5rem 1rem 0 rgba(0, 0, 0, .08);
+    font-size: 1rem;
+}
+
+.tippy-box[data-theme~='magral-right']{
+    margin-left: -.5em;
+}
+
+.tippy-box[data-theme~='magral-top']{
+    margin-top: -.5em;
+}
+
+.tippy-box[data-theme~='magral-menu']{
+    div{
+        display: block;
+    }
+    background-color: var(--bg-color);
+    box-shadow: 0 0 1rem .3rem rgba(0, 0, 0, .08);
+    border-radius: .7rem;
+    a{
+        display: block;
+        padding: 1rem 1rem;
+        transition: .2s;
+        &:hover{
+            color: var(--primary-color);
+        }
+    }
+    // color:#ccc;
+}
+
+
+.fl{
+    float: left;
+}
+
+.fr{
+    float: right;
+}
+
+
 .clearfix {
     clear:both;
     &::after {

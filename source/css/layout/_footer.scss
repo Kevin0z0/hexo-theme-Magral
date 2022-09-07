@@ -3,11 +3,52 @@ $footer-margin: 1rem;
 .footer{
     width: calc(100% - $footer-margin * 2);
     margin: 0 auto $footer-margin;
-    padding: 4rem 3rem;
+    padding: 3rem;
     text-align: center;
     background-color: theme('primaryColor');
-    height: 20rem;
     border-radius: 1.5rem;
+    color: #FFF;
 
+    a{
+        color: inherit;
+    }
     
+    & > div{
+        font-size: 1.4rem;
+    }
+
+    &__icon{
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .tippy-top{
+        color: #FFF;
+        margin: 0 1rem;
+    }
+
+    &__theme{
+        margin: 2rem 0;
+        span{
+            margin: 0 1rem;
+        }
+    }
+
+    &__site{
+        margin: 2rem 0;
+        span{
+            margin: 0 1rem;
+        }
+    }
+
+    &__copyright{
+        color: rgba(255,255,255,.4);
+        font-size: 1rem !important;
+
+        span{
+            margin: 0 .5rem;
+        }
+    }
 }

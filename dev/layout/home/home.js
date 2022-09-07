@@ -1,6 +1,7 @@
 import '../../components/icon'
 import LazyLoad from "vanilla-lazyload"
 import banner from './banner'
+import Typed from 'typed.js';
 
 
 const menu = document.getElementsByClassName("header-big__center__list-name")
@@ -18,3 +19,14 @@ const lazyLoadInstance = new LazyLoad({
 
 
 banner()
+
+if(typedConfig.enable){
+    new Typed('.typed-main', {
+        strings: typedConfig.sentences,
+        typeSpeed: typedConfig.typeSpeed,
+        loop: typedConfig.loop,
+        backSpeed: typedConfig.backSpeed,
+        showCursor: typedConfig.showCursor,
+        startDelay: typedConfig.startDelay
+      });
+}

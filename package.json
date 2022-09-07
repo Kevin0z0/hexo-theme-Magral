@@ -26,6 +26,7 @@
   "dependencies": {
     "animejs": "^3.2.1",
     "tippy.js": "^6.3.7",
+    "typed.js": "^2.0.12",
     "vanilla-lazyload": "^17.8.3"
   }
 }

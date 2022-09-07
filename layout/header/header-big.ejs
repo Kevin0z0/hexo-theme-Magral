@@ -1,4 +1,4 @@
-<div class="header-big">
+<div class="header-big" >
     <div class="header-big__left">
         <% for(const i of theme.icons) {%>
             <a class="tippy-right <%=i.icon%>" data-tippy-placement="right"
@@ -23,10 +23,17 @@
                     const item = menu[key]
             %>
                 <li>
-                    <a class="header-big__center__list-name" 
+                    <a class="header-big__center__list-name" data-tippy-placement="bottom" 
                     href="<%= item.url || '/' %>">
                         <%= item.name || key %><%-item.children && `<b>&nbsp;·</b>`%>
                     </a>
+                    <% if(item.children){ %>
+                    <div class="header-big__center__list-children">
+                        <% for(const child of item.children) {%>
+                            <a href="<%=child.url%>" target="_blank"><%=child.name%></a>
+                        <% } %>
+                    </div>
+                    <% } %>
                 </li>
             <% } %>
         </ul>

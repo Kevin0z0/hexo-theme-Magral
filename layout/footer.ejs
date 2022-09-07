@@ -1,5 +1,29 @@
 <footer class="footer">
     <div class="footer__icon">
-        
+        <% for(const i of theme.icons) {%>
+            <a class="tippy-top <%=i.icon%>" data-tippy-placement="top"
+                data-tippy-content="<%=i.name ? i.name : `<img src='${i.img}' ${i.width && "style='width:" + i.width + "rem'"}>`%>" 
+                style="font-size: <%=i.size || 2%>rem;" <%=i.url && `href=${i.url} target=_blank`%>> 
+            </a>
+        <%}%>
+    </div>
+    <div class="footer__theme">
+        Powered by <a href="<%=theme.footer.poweredBy.url%>" target="_blank">
+            <b><%=theme.footer.poweredBy.name%></b>
+        </a> 
+        <span>|</span> 
+        Theme <a href="<%=theme.footer.theme.url%>" target="_blank">
+            <b><%=theme.footer.theme.name%></b>
+        </a>
+    </div>
+    <div class="footer__site">
+        <span>总访问量: 8166 次 |  总访问人数: 5436 人</span>
+        <span>本站已安全运行 2 年 81 天 9 小时 5 分钟 9 秒</span>
+    </div>
+    <div class="footer__copyright">
+        Copyright © <%=theme.copyright.start%> - <%=date().substring(0, 4)%> 
+        <a href="<%=theme.copyright.url%>">
+            <b><%=theme.copyright.name%></b>
+        </a> <span>|</span> <a href="<%=theme.record.url%>"><%=theme.record.name%></a>
     </div>
 </footer>

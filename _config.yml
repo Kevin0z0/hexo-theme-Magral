@@ -120,3 +120,36 @@ menu:
   about:
     name: About
     url: /about
+
+footer:
+  poweredBy: 
+    name: Hexo
+    url: https://hexo.io/zh-cn/
+
+  theme:
+    name: Magral
+    url: https://github.com/Kevin0z0/hexo-theme-Magral
+
+copyright: 
+  start: 2020
+  name: Kevin。
+  url: /
+
+record: #备案信息
+  name: 浙ICP备18024727号
+  url: http://beian.miit.gov.cn/
+
+subtitle:
+  enable: true
+  loop: true # 是否循环
+  showCursor: true # 是否显示光标
+  startDelay: 300 # 开始延迟
+  typeSpeed: 100 # 打字速度
+  backSpeed: 60 # 删除速度
+  sentences:
+    - 从来没有真正的绝境, 只有心灵的迷途
+    - Never really desperate, only the lost of the soul
+
+recommend:
+  enable: true
+  name: Recommend

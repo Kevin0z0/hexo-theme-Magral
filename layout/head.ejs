@@ -9,10 +9,9 @@
     <%- css('css/fonts/iconfont') %>
     <script>
         const author = "<%= theme.author %>"
-        const menu = <%- JSON.stringify(theme.menu) %>
-        <% for(const i in jsVar){ %>
-            <%-`const ${i}=${JSON.stringify(jsVar[i])}`%>
-        <% } %>
+    <% for(const i in jsVar){ %>
+        <%-`const ${i}=${JSON.stringify(jsVar[i])}`%>
+    <% } %>
     </script>
 </head>
 <body>

@@ -1,0 +1,15 @@
+.recommend{
+    padding: 4rem 0;
+
+    &__head{
+        font-size: 3.6rem;
+        font-weight: 900;
+        
+        a{
+            transition: .2s color;
+            &:hover{
+                color: var(--primary-color);
+            }
+        }
+    }
+}
