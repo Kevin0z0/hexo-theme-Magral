@@ -37,6 +37,7 @@ html {
 
 body{
     background-color: theme('background');
+    overflow-x: hidden;
 }
 
 a{
@@ -54,6 +55,13 @@ $margin-lr: 10rem;
 .margin{
     width: calc(100% - 2 * $margin-lr);
     margin: 0 $margin-lr;
+}
+
+#bg{
+    position: absolute;
+    top: 106rem;
+    right: -91rem;
+    z-index: -2;
 }
 
 

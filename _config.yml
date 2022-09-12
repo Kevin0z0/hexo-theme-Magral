@@ -154,3 +154,7 @@ subtitle:
 recommend:
   enable: true
   name: Recommend
+
+svgBackground:
+  enable: true
+  color: "#ffdfe1"

@@ -4,6 +4,7 @@ header{
     height: calc(100vh - .1rem);
     display: flex;
     flex-direction: column;
+    position: relative;
 }
 
 .header-big{
