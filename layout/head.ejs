@@ -5,8 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= theme.title %></title>
-    <%- theme.dev ? css('css/style') : css('css/prod_style') %>
     <%- css('css/fonts/iconfont') %>
+    <%- theme.dev ? css('css/style') : css('css/prod_style') %>
     <script>
         const author = "<%= theme.author %>"
     <% for(const i in jsVar){ %>

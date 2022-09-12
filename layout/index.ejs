@@ -1,5 +1,4 @@
 <% 
-
 const recommendPosts = []
 site.posts.forEach(post => {
     if (post.top) {
@@ -33,9 +32,12 @@ const preset = {
 </header>
 
 <main id="main">
+<% if(theme.subtitle.enable) {%> 
     <div class="typed">
         <span class="typed-main"></span>
-    </div>
+    </div> 
+<% } %> 
+    
 <% if(theme.recommend.enable) {%> 
     <%- partial("partial/recommend") %> 
 <% } %> 

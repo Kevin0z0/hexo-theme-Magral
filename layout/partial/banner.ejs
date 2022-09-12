@@ -1,6 +1,6 @@
 <div class="banner margin">
     <div class="banner__main" <%= posts.length === 1 && 'style="width:100%"' %>>
-        <div class="banner__main__pic" id="banner-pic">
+        <div class="banner__main__pic radius" id="banner-pic">
             <% if(posts.length > 1){%>
                 <div class="banner__main__dot">
                 <% for(let i = 0; i < posts.length; i++){ %>
@@ -33,7 +33,7 @@
     <div class="banner__side">
         <%for(let i = 1; i < posts.length; i++) {
             const item = posts[i]%>
-            <div class='banner__side__pic' style="height: <%= (100 / (posts.length - 1)) %>%; z-index: <%=i%>" >
+            <div class='banner__side__pic radius' style="height: <%= (100 / (posts.length - 1)) %>%; z-index: <%=i%>" >
                 <a class="banner__side__title" href="<%=fillPath(item.path)%>">
                     <%= item.title %>
                 </a>

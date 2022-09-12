@@ -13,22 +13,18 @@
     }
 }
 
-@mixin playlist-grid{
-    display: grid;
-    justify-content: space-between;
-    grid-template-columns: repeat(auto-fit,minmax(15rem,1fr));
-    grid-gap: 3rem;
-
-    @media only screen and (min-width: 81.25em) {
-        grid-template-columns: repeat(auto-fit,minmax(17rem,1fr));
+@mixin respond($breakpoint) {
+    @if $breakpoint == phone {
+         @media only screen and (max-width: 37.5em) { @content };    //600px
     }
-
-    @media only screen and (min-width: 90.63em) {
-        grid-template-columns: repeat(auto-fit,minmax(20rem,1fr));
+    @else if $breakpoint == tab-port {
+        @media only screen and (max-width: 56.25em) { @content };     //900px
     }
-
-    @media only screen and (min-width: 102.18em) {
-        grid-template-columns: repeat(auto-fit,minmax(23rem,1fr));
+    @else if $breakpoint == tab-land {
+        @media only screen and (max-width:    75em) { @content };    //1200px
+    }
+    @else if $breakpoint == big-desktop {
+        @media only screen and (min-width: 112.5em) { @content };    //1800px
     }
 }
 
@@ -47,8 +43,8 @@
 }
 
 @mixin cover{
-    background-size: cover;
-    background-position: center;
+    background-size: cover !important;
+    background-position: center !important;
 }
 
 @mixin ellipsis($num){

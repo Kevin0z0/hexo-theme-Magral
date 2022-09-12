@@ -136,6 +136,7 @@ copyright:
   url: /
 
 record: #备案信息
+  enable: true
   name: 浙ICP备18024727号
   url: http://beian.miit.gov.cn/
 

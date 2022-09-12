@@ -2,6 +2,7 @@ import '../../components/icon'
 import LazyLoad from "vanilla-lazyload"
 import banner from './banner'
 import Typed from 'typed.js';
+import '../../components/recommend'
 
 
 const menu = document.getElementsByClassName("header-big__center__list-name")
@@ -20,13 +21,36 @@ const lazyLoadInstance = new LazyLoad({
 
 banner()
 
+const typed = document.getElementsByClassName('typed')[0]
+let typedHeight
 if(typedConfig.enable){
-    new Typed('.typed-main', {
+    const typedSentences = new Typed('.typed-main', {
         strings: typedConfig.sentences,
         typeSpeed: typedConfig.typeSpeed,
         loop: typedConfig.loop,
         backSpeed: typedConfig.backSpeed,
         showCursor: typedConfig.showCursor,
-        startDelay: typedConfig.startDelay
-      });
+        startDelay: typedConfig.startDelay,
+        onBegin(){
+            setTimeout(()=>{
+                typedHeight = typed.offsetHeight
+            },50)
+        },
+        onStringTyped(){
+            const height = typed.offsetHeight
+            if(typedHeight < height){
+                typedHeight = height
+                typed.style = `min-height: ${height}px`
+            }
+        },
+        onComplete(){
+            typed.style = ""
+            typedHeight = typed.offsetHeight
+            typed.style = `min-height: ${typedHeight}px`
+        }
+      });      
+    typed.addEventListener("dblclick", ()=>{
+        if(!typedSentences.pause.status) typedSentences.stop()
+        else typedSentences.start()
+    })
 }

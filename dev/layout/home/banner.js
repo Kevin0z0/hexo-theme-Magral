@@ -41,12 +41,15 @@ let bannerCount = 0
 let timeout
 const imgData = bannerInfo.map(v=>v.img)
 
+const SIDE_IMG = 'banner__side__img'
+const MAIN_ITEM = 'banner__main__dot-item'
+
 const sideAnime = (element, index) => {
-    const oldImg = element.getElementsByClassName('banner__side__img')[0]
+    const oldImg = element.getElementsByClassName(SIDE_IMG)[0]
     const img = document.createElement('div')
     const title = element.getElementsByClassName('banner__side__title')[0]
     img.style = `background-image: url('${fillPath(imgData[index])}')`
-    img.className = 'banner__side__img'
+    img.className = SIDE_IMG
     element.appendChild(img)
 
     anime({
@@ -79,28 +82,35 @@ const calcIndex = (index, all) => {
     if(index < 0) return (all + index) % all
     return index % all
 }
-const bannerListDot = document.getElementsByClassName('banner__main__dot-item')
+
+
+const bannerListDot = document.getElementsByClassName(MAIN_ITEM)
 const above = symbol => symbol > 0
 
 let listDotIndex = 0
 const active = (index) => {
-    bannerListDot[listDotIndex].className = 'banner__main__dot-item'
+    bannerListDot[listDotIndex].className = MAIN_ITEM
     listDotIndex = index
-    bannerListDot[index].className = 'banner__main__dot-item banner__main__dot-active'
+    bannerListDot[index].className = `${MAIN_ITEM} banner__main__dot-active`
 }
 
 let autoScrollTimeout = 0
 
+const clearAnime = () => {
+    if(autoScrollTimeout) {
+        clearInterval(autoScrollTimeout)
+        autoScrollTimeout = 0
+    }
+}
 
 const bannerAnime = (addNum, symbol) => {
     if(timeout) {
         if(bannerCount) return
         return bannerCount++
     }
-    if(autoScrollTimeout) {
-        clearInterval(autoScrollTimeout)
-        autoScrollTimeout = 0
-    }
+    
+    clearAnime()
+    
     const len = bannerInfo.length
     const imgBox = document.createElement('div')
     const nextBanner = calcIndex(currentBannerIndex + addNum * symbol, len)
@@ -111,7 +121,7 @@ const bannerAnime = (addNum, symbol) => {
 
 
     for(let i = 0; i < sideBanner.length; i++){
-        if(sideBanner[i].getElementsByClassName('banner__side__img')[0].getAttribute('style').includes(imgData[nextBanner]))
+        if(sideBanner[i].getElementsByClassName(SIDE_IMG)[0].getAttribute('style').includes(imgData[nextBanner]))
         sideAnime(sideBanner[i], currentBannerIndex)
     }
     
@@ -168,6 +178,7 @@ const bannerAnime = (addNum, symbol) => {
 }
 
 const autoScroll = () => {
+    clearAnime()
     autoScrollTimeout = setInterval(()=>{
         bannerAnime(1, 1)
     }, 5000)
@@ -186,9 +197,7 @@ bannerArrowLeft.addEventListener('mousedown', () => {
 
 window.addEventListener("visibilitychange", () =>{
     if(document.visibilityState === 'hidden' && autoScrollTimeout){
-        clearInterval(autoScrollTimeout)
-        autoScrollTimeout = 0
-        return
+        return clearAnime()
     }
     autoScroll()
 })

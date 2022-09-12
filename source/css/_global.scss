@@ -75,3 +75,15 @@
         display: table;
       }
 }
+
+.radius{
+    border-radius: $radius;
+}
+
+.radius-small{
+    border-radius: $radius-small;
+}
+
+.cover{
+    @include cover;
+}
