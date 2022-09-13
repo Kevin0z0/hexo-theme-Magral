@@ -14,3 +14,19 @@ export const isRegExp = (value) => {
 export const isPromise = (value) => {
     return Object.prototype.toString.call(value) === '[object Promise]'
 }
+
+export const isFunction = (value) => {
+    return Object.prototype.toString.call(value) === '[object Function]'
+}
+
+export const throttle = (fn, delay) => {
+    let valid = true
+    return () => {
+        if(!valid) return
+        valid = false
+        setTimeout(() => {
+            fn && fn()
+            valid = true;
+        }, delay)
+    }
+}
