@@ -57,6 +57,18 @@
     // color:#ccc;
 }
 
+.margin{
+    width: calc(100% - 2 * $margin-lr);
+    margin: 0 $margin-lr;
+}
+
+#bg{
+    position: absolute;
+    top: 106rem;
+    right: -91rem;
+    z-index: -2;
+}
+
 
 .fl{
     float: left;
@@ -86,4 +98,9 @@
 
 .cover{
     @include cover;
+}
+
+.max-width{
+    max-width: 254.5rem;
+    margin: 0 auto;
 }

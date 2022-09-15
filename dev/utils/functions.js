@@ -3,20 +3,28 @@ export const fillPath = (path) => {
     return path
 }
 
-export const isNumber = (val) => {
-    return typeof val === 'number'
+export const isInstance = (instance, name) => {
+    return Object.prototype.toString.call(instance).toLowerCase() === `[object ${name.toLowerCase()}]`
 }
 
 export const isRegExp = (value) => {
-    return Object.prototype.toString.call(value) === '[object RegExp]'
+    return isInstance(value, 'regexp')
 }
 
 export const isPromise = (value) => {
-    return Object.prototype.toString.call(value) === '[object Promise]'
+    return isInstance(value, 'promise')
 }
 
 export const isFunction = (value) => {
-    return Object.prototype.toString.call(value) === '[object Function]'
+    return isInstance(value, 'function')
+}
+
+export const isStr = (value) => {
+    return isInstance(value, 'string')
+}
+
+export const isNumber = (val) => {
+    return isInstance(value, 'number')
 }
 
 export const throttle = (fn, delay) => {
