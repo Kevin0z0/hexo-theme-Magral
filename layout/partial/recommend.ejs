@@ -8,51 +8,24 @@
     </div>
     <div class="recommend__body">
         <% 
-        const info = [
-            {
-                img:"/images/article-banner/QQ截图20220412194715.jpg",
-                title:"ABCD",
-                desc: "AAAAAAAAAAAAAAAAAAAA",
-                tags: []
-            },
-            {
-                img:"/images/article-banner/QQ截图20220420160926.jpg",
-                title:"ABCD",
-                desc: "AAAAAAAAAAAAAAAAAAAA",
-                tags: []
-            },
-            {
-                img:"/images/article-banner/QQ截图20220424203432.jpg",
-                title:"ABCD",
-                desc: "AAAAAAAAAAAAAAAAAAAA",
-                tags: []
-            },
-            // {
-            //     img:"/images/article-banner/QQ截图20220424203532.jpg",
-            //     title:"ABCD",
-            //     desc: "AAAAAAAAAAAAAAAAAAAA",
-            //     tags: []
-            // },
-            // {
-            //     img:"/images/article-banner/QQ截图20220427213008.jpg",
-            //     title:"ABCD",
-            //     desc: "AAAAAAAAAAAAAAAAAAAA"
-            // },
-            // {
-            //     img:"/images/article-banner/wallhaven-zmr6qv.png",
-            //     title:"ABCD",
-            //     desc: "AAAAAAAAAAAAAAAAAAAA"
-            // },
-
-        ]
-
-        for(const i of info){ %>
+        for(const i of recommendInfo){ %>
             <div class="recommend__body__box radius">
                 <div class="recommend__body__box-img cover lazy" data-bg="<%= i.img %>"></div>
-                <div class="clearfix recommend__body__box-tags">
-                    <% for(const j of i.tags){ %>
-                        <span></span>
-                    <% } %>
+                <div class="recommend__body__box-wrap">
+                    <div class="clearfix recommend__body__box-tags">
+                        <% for(const j of i.tags){ %>
+                            <%- partial('partial/tag', {info: j, hover: false}) %>   
+                        <% } %>
+                    </div>
+                    <a href="<%=i.path%>" class="recommend__body__box-title" title="<%=i.title%>"><span><%=i.title%></span></a>
+                    <div class="recommend__body__box-bottom clearfix">
+                        <span class="fl"><%=i.date%></span>
+                        <div class="fr recommend__body__box-categories">
+                        <%for(const item of i.categories){%>
+                            <a href="<%=item.path%>">#&nbsp;<%=item.name%></a>
+                        <%}%>
+                        </div>
+                    </div>
                 </div>
                 <div class="recommend__body__box-bg cover lazy" data-bg="<%= i.img %>"></div>
             </div>

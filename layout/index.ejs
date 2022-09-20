@@ -1,13 +1,7 @@
 <% 
-const recommendPosts = []
-site.posts.forEach(post => {
-    if (post.top) {
-        recommendPosts.push(post)
-        return
-    }
-})
+const topPosts = site.posts.filter(post=>post.top).data
 
-const bannerInfo = recommendPosts.map(v=>{
+const bannerInfo = topPosts.map(v=>{
     return {
         date: date(v.date, theme.dateFormat),
         tags: v.tags && v.tags.data.map(a=>{return {name: a.name, path: fillPath(a.path)}}) || [],
@@ -16,10 +10,29 @@ const bannerInfo = recommendPosts.map(v=>{
         title: v.title
     }
 })
+
+const recommend = site.posts.filter(post => post.recommend).data
+const recommendInfo = recommend.map(v=>{
+    return {
+        date: date(v.date, theme.dateFormat),
+        tags: v.tags && v.tags.data.map(a=>{return {name: a.name, path: fillPath(a.path)}}) || [],
+        path: fillPath(v.path),
+        img: v.img,
+        title: v.title,
+        categories: v.categories.data.map(data => {
+            return {
+                name: data.name,
+                path: fillPath(data.path)
+            }
+        })
+    }
+})
+
 const preset = {
     jsVar: {
         bannerInfo,
-        typedConfig: theme.subtitle
+        typedConfig: theme.subtitle,
+        recommendInfo
     }
 }
 
@@ -28,7 +41,7 @@ const preset = {
 
 <header>
     <%- include("header/header-big.ejs") %> 
-    <%- partial('partial/banner', {posts: recommendPosts}) %> 
+    <%- partial('partial/banner', {posts: topPosts}) %> 
     <% if(theme.svgBackground.enable){ %>
         <%- partial('partial/svg') %>
     <% } %>
@@ -42,7 +55,7 @@ const preset = {
 <% } %> 
     
 <% if(theme.recommend.enable) {%> 
-    <%- partial("partial/recommend") %> 
+    <%- partial("partial/recommend", {recommendInfo}) %> 
 <% } %> 
 </main>
 

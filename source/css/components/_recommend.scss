@@ -52,11 +52,12 @@
             background-color: var(--bg-color);
             position: relative;
             height: 50rem;
+            max-width: 60rem;
+            justify-self: center;
             &-img{
                 border-top-left-radius: $radius;
                 border-top-right-radius: $radius;
                 height: 70%;
-                // display: none;
             }
 
             &-bg{
@@ -66,9 +67,57 @@
                 filter: blur(2rem) opacity(0.6);
                 bottom: -3rem;
                 z-index: -1;
-                // transform: scale(0.92, 0.96);
                 opacity: .4;
+                left: 0;
             }
+            &-wrap{
+                padding: 1.5rem;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                height: 30%;
+            }
+
+            &-tags{
+                .tag{
+                    float: right;
+                }
+            }
+
+            &-title{
+                font-size: 2rem;
+                font-weight: 900;
+                @include ellipsis(1);
+                margin-top: 1rem;
+                flex: 1;
+                line-height: 100%;
+                span{
+                    transition: .2s;
+                    &:hover{
+                        color: var(--primary-color);
+                    }
+                }
+            }
+
+            &-bottom{
+                .fl{
+                    color: var(--secondary-font-color);
+                }
+            }
+
+            &-categories{
+                cursor: default;
+                a{
+                    color: var(--primary-font-color);
+                    font-weight: 900;
+                    margin-left: .6rem;
+                    &:hover{
+                        text-decoration: underline;
+                        color: var(--primary-color);
+                    }
+                }
+            }
+            
         }
 
         @include respond(big-desktop){

@@ -21,6 +21,11 @@ const lazyLoadInstance = new LazyLoad({
 
 banner()
 
+const a = () => {
+    return 
+    <div class="aaa"></div>
+}
+
 const typed = document.getElementsByClassName('typed')[0]
 let typedHeight
 if(typedConfig.enable){

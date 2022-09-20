@@ -1,9 +1,15 @@
 const parser = require("@babel/parser")
 
 module.exports = function(source) {
-    const body = parser.parse(source, {
-        sourceType: "module"
-    }).program.body
+    try{
+        const body = parser.parse(source, {
+            sourceType: "module"
+        }).program.body
+        
+    }catch(e){
+        console.log(e.loc);
+    }
+    return
     let pos = 0
     for(const i of body){
         if(i.type !== 'ImportDeclaration'){
