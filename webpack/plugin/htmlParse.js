@@ -1,7 +1,31 @@
 const template = `
-<img src="/" / >
+<div class="abc">    </div>`
 
-</div>`
+const TAG_START            = "<"
+const TAG_END              = ">"
+const USELESS_CHAR         = " \t\n"
+const TAG_CHAR             = /[\w\-]/
+const SELF_CLOSING_TAG_END = "/"
+const SELF_CLOSING_TAG     = ['meta', 'input', 'img', 'hr', 'br', 'link', 'embed', 'source', 'keygen', 'base']
+const STRING_QUOTES        = `"'`
+const EQUAL                = '='
+const EMPTY                = ""
+
+const isUselessChar        = char => USELESS_CHAR.includes(char)
+const isTagChar            = char => TAG_CHAR.test(char)
+
+let PARSE_COUNT            = 0            
+const PARSE_DEFAUTE        = PARSE_COUNT++
+const PARSE_START          = PARSE_COUNT++
+const PARSE_TAG            = PARSE_COUNT++
+const PARSE_ATTR           = PARSE_COUNT++
+const MAIN_TAG_END         = PARSE_COUNT++
+const PARSE_TEXT           = PARSE_COUNT++
+const TEXT_END             = PARSE_COUNT++
+const PARSE_CLOSING_TAG    = PARSE_COUNT++
+const PARSE_CHILD          = PARSE_COUNT++
+const PARSE_END            = PARSE_COUNT++
+
 
 class ElementNode {
     constructor(tag=undefined) {
@@ -14,33 +38,11 @@ class ElementNode {
     }
 }
 
-const TAG_START        = "<"
-const TAG_END          = ">"
-const USELESS_CHAR     = " \t\n"
-const TAG_CHAR         = /[\w\-]/
-const SELF_CLOSING_TAG_END = "/"
-const SELF_CLOSING_TAG = ['meta', 'input', 'img', 'hr', 'br', 'link', 'embed', 'source', 'keygen', 'base']
-const STRING_QUOTES    = `"'`
-const EQUAL            = '='
-const EMPTY            = ""
-
-const START_STATUS     = Symbol('start')
-const END_STATUS       = Symbol('end')
-const NONE_STATUS      = Symbol('none')
-
-const isUselessChar = char => USELESS_CHAR.includes(char)
-
-const isTagChar = char => TAG_CHAR.test(char)
-
-const PARSE_START = 1
-const PARSE_TAG = 2
-const PARSE_ATTR = 3
-const MAIN_TAG_END = 4
-const PARSE_TEXT = 5
-const TEXT_END = 6
-const PARSE_CLOSING_TAG = 7
-const PARSE_CHILD = 8
-const PARSE_END = 9
+class TextNode {
+    constructor(content){
+        this.content = [content]
+    }
+}
 
 class HTMLParse{
     constructor(source, pos){
@@ -75,13 +77,19 @@ class HTMLParse{
                 case PARSE_ATTR:
                     this.parseAttr(node)
                     break
-                case PARSE_END:
+                case MAIN_TAG_END:
+                    this.mainTagEnd(node)
+                    break
+                case PARSE_CLOSING_TAG:
+                    this.parseClosingTag(node)
+                    break
+                case PARSE_DEFAUTE:
                 default:
                     flag = true
                     break
             }
         }
-        console.log(node);
+        return node
     }
 
     parseStart(){
@@ -93,11 +101,10 @@ class HTMLParse{
         this.status = PARSE_TAG
     }
 
-    parseTag(node){
-        this.jumpUselessChar()
+    getTagName(){
         let char = this.getChar()
         let strArr = []
-        while(!isUselessChar(char)){
+        while(!isUselessChar(char) && char !== TAG_END){
             if(isTagChar){
                 strArr.push(char)
                 char = this.next()
@@ -105,16 +112,46 @@ class HTMLParse{
                 throw new Error("Unexpexted charcode in the tag name")
             }
         }
-        strArr = strArr.join(EMPTY)
-        if(strArr.startsWith('!--')){
+        return strArr.join(EMPTY)
+    }
+
+    parseTag(node){
+        this.jumpUselessChar()
+        const str = this.getTagName()
+        if(str.startsWith('!--')){
             node.comment = true
         }
-        if(SELF_CLOSING_TAG.includes(strArr) || strArr.startsWith('!')){
+        if(SELF_CLOSING_TAG.includes(str) || str.startsWith('!')){
             node.selfClosing = true
         }
         this.pos++
-        node.tag = strArr
+        node.tag = str
         this.status = PARSE_ATTR
+    }
+
+    mainTagEnd(node){
+        this.jumpUselessChar()
+        let char = this.getChar()
+        if(char === TAG_START){
+            char = this.next()
+            if(char === '/'){
+                this.status = PARSE_CLOSING_TAG
+                this.pos++
+                return
+            }
+        }
+        this.status = PARSE_DEFAUTE
+    }
+
+    parseClosingTag(node){
+        if(this.getTagName() !== node.tag){
+            throw new Error(`Element <${node.tag}> closing tag required`)
+        }
+        this.jumpUselessChar()
+        if(this.getChar() !== TAG_END){
+            throw new Error(`<${node.tag}> closing tag ERROR`)
+        }
+        this.status = PARSE_DEFAUTE
     }
 
     stringStart(char){
@@ -138,7 +175,8 @@ class HTMLParse{
         this.jumpUselessChar()
         let char = this.getChar()
         if(char === TAG_END){
-            this.status = 11
+            this.pos++
+            this.status = MAIN_TAG_END
             return
         }else if(char === SELF_CLOSING_TAG_END){
             if(!SELF_CLOSING_TAG.includes(node.tag)){
