@@ -1,15 +1,20 @@
 const parser = require("@babel/parser")
+const HTMLParse = require('./htmlParse')
 
 module.exports = function(source) {
-    try{
-        const body = parser.parse(source, {
-            sourceType: "module"
-        }).program.body
-        
-    }catch(e){
-        console.log(e.loc);
+    let body
+    while(true){
+        try{
+            body = parser.parse(source, {
+                sourceType: "module"
+            }).program.body
+            break
+        }catch(e){
+            const parse = new HTMLParse(source, e.loc.index)
+            source = `${source.substring(0, e.loc.index)}${JSON.stringify(parse.parse())}${source.substring(parse.pos)}`
+        }
     }
-    return
+
     let pos = 0
     for(const i of body){
         if(i.type !== 'ImportDeclaration'){

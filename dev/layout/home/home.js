@@ -22,8 +22,7 @@ const lazyLoadInstance = new LazyLoad({
 banner()
 
 const a = () => {
-    return 
-    <div class="aaa"></div>
+    return <div class="aaa">bbbb</div>
 }
 
 const typed = document.getElementsByClassName('typed')[0]

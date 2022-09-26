@@ -1,6 +1,3 @@
-const template = `
-<div class="abc">    </div>`
-
 const TAG_START            = "<"
 const TAG_END              = ">"
 const USELESS_CHAR         = " \t\n"
@@ -14,33 +11,47 @@ const EMPTY                = ""
 const isUselessChar        = char => USELESS_CHAR.includes(char)
 const isTagChar            = char => TAG_CHAR.test(char)
 
-let PARSE_COUNT            = 0            
-const PARSE_DEFAUTE        = PARSE_COUNT++
-const PARSE_START          = PARSE_COUNT++
-const PARSE_TAG            = PARSE_COUNT++
-const PARSE_ATTR           = PARSE_COUNT++
-const MAIN_TAG_END         = PARSE_COUNT++
-const PARSE_TEXT           = PARSE_COUNT++
-const TEXT_END             = PARSE_COUNT++
-const PARSE_CLOSING_TAG    = PARSE_COUNT++
-const PARSE_CHILD          = PARSE_COUNT++
-const PARSE_END            = PARSE_COUNT++
+let   PARSE_ENUM           = 0           
+const PARSE_DEFAUTE        = PARSE_ENUM++
+const PARSE_START          = PARSE_ENUM++
+const PARSE_TAG            = PARSE_ENUM++
+const PARSE_ATTR           = PARSE_ENUM++
+const MAIN_TAG_END         = PARSE_ENUM++
+const PARSE_TEXT           = PARSE_ENUM++
+const TEXT_END             = PARSE_ENUM++
+const PARSE_CLOSING_TAG    = PARSE_ENUM++
+const PARSE_END            = PARSE_ENUM++
 
 
 class ElementNode {
     constructor(tag=undefined) {
        this.tag = tag;
        this.attr = {};
-       this.text = '';
        this.children = [];
        this.selfClosing = false
        this.comment = false
+    }
+
+    toJSON(){
+        return {
+            tag: this.tag,
+            attr: this.attr,
+            type: 'ElementNode',
+            children: this.children
+        }
     }
 }
 
 class TextNode {
     constructor(content){
-        this.content = [content]
+        this.content = content
+    }
+
+    toJSON(){
+        return {
+            text: this.content,
+            type: 'TextNode',
+        }
     }
 }
 
@@ -48,7 +59,6 @@ class HTMLParse{
     constructor(source, pos){
         this.source = source
         this.pos = pos
-        this.stringStatus = NONE_STATUS
         this.status = PARSE_START
     }
 
@@ -80,8 +90,14 @@ class HTMLParse{
                 case MAIN_TAG_END:
                     this.mainTagEnd(node)
                     break
+                case PARSE_TEXT:
+                    this.parseText(node)
+                    break
                 case PARSE_CLOSING_TAG:
                     this.parseClosingTag(node)
+                    break
+                case PARSE_END:
+                    this.parseEnd(node)
                     break
                 case PARSE_DEFAUTE:
                 default:
@@ -124,9 +140,9 @@ class HTMLParse{
         if(SELF_CLOSING_TAG.includes(str) || str.startsWith('!')){
             node.selfClosing = true
         }
+        this.status = this.getChar() === TAG_END ? MAIN_TAG_END : PARSE_ATTR
         this.pos++
         node.tag = str
-        this.status = PARSE_ATTR
     }
 
     mainTagEnd(node){
@@ -139,8 +155,46 @@ class HTMLParse{
                 this.pos++
                 return
             }
+            this.parseNewNode(node)
         }
-        this.status = PARSE_DEFAUTE
+        this.status = PARSE_TEXT
+    }
+
+    parseNewNode(node){
+        const parser = new HTMLParse(this.source, this.pos-1)
+        node.children.push(parser.parse())
+        this.pos = parser.pos + 1
+    }
+
+    parseText(node){
+        let char = this.getChar()
+        const arr = []
+        let flag = true
+        while(true){
+            if(char === TAG_START) {
+                char = this.next()
+                if(char === '/') {
+                    this.status = PARSE_CLOSING_TAG
+                    this.pos++
+                    flag = false
+                    break
+                }
+                else {
+                    node.children.push(new TextNode(arr.join('')))
+                    this.parseNewNode(node)
+                    this.pos--
+                    arr.length = 0
+                }
+            }else{
+                arr.push(char)
+            }
+            char = this.next()
+        }
+        
+        arr.length && node.children.push(new TextNode(arr.join('')))
+        if(flag){
+            this.status = PARSE_DEFAUTE
+        }
     }
 
     parseClosingTag(node){
@@ -151,6 +205,13 @@ class HTMLParse{
         if(this.getChar() !== TAG_END){
             throw new Error(`<${node.tag}> closing tag ERROR`)
         }
+        this.pos++
+        this.status = PARSE_END
+    }
+
+    parseEnd(node){
+        // this.jumpUselessChar()
+        // let char = this.getChar()
         this.status = PARSE_DEFAUTE
     }
 
@@ -161,11 +222,7 @@ class HTMLParse{
     getChar = () => this.source[this.pos]
 
     next(num=1, pos=undefined){
-        if(pos === undefined){
-            this.pos += num
-        }else{
-            this.pos = pos + num
-        }
+        this.pos = (pos || this.pos) + num
         return this.getChar()
     }
 
@@ -242,4 +299,12 @@ class HTMLParse{
     }
 }
 
-new HTMLParse(template, 0).parse()
+module.exports = HTMLParse
+
+if(module.id === '.'){
+    const template = `
+    <div class="abc">aaa<span>AAASSS</span>zxczx</div>  `
+    
+    // console.log(JSON.stringify(new HTMLParse(template, 0).parse()));
+    console.log(new HTMLParse(template, 0).parse());
+}
