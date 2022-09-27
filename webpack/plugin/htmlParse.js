@@ -22,6 +22,24 @@ const TEXT_END             = PARSE_ENUM++
 const PARSE_CLOSING_TAG    = PARSE_ENUM++
 const PARSE_END            = PARSE_ENUM++
 
+const isInstance = (instance, name) => {
+    return Object.prototype.toString.call(instance).toLowerCase() === `[object ${name.toLowerCase()}]`
+}
+
+const addItem = (key, value, obj) => {
+    if(key in obj){
+        if(value === EMPTY) return
+        const data = obj[key]
+        if(isInstance(data, 'array')){
+            data.push(value)
+        }else{
+            obj[key] = [data, value]
+        }
+    }else{
+        obj[key] = value
+    }
+}
+
 
 class ElementNode {
     constructor(tag=undefined) {
@@ -74,9 +92,8 @@ class HTMLParse{
 
     parse(){
         const node = new ElementNode()
-        let flag = false
-        while(true){
-            if(flag) break
+        let flag = true
+        while(flag){
             switch(this.status){
                 case PARSE_START:
                     this.parseStart()
@@ -101,7 +118,7 @@ class HTMLParse{
                     break
                 case PARSE_DEFAUTE:
                 default:
-                    flag = true
+                    flag = false
                     break
             }
         }
@@ -262,7 +279,7 @@ class HTMLParse{
         attrKey = attrKey.join(EMPTY)
         this.jumpUselessChar()
         if((char = this.getChar()) !== EQUAL){
-            node.attr[attrKey] = EMPTY
+            addItem(attrKey, EMPTY, node.attr)
             this.status = PARSE_ATTR
             return
         }else{
@@ -270,7 +287,7 @@ class HTMLParse{
             this.jumpUselessChar()
         }
         let attrValue = this.parseAttrValue()
-        node.attr[attrKey] = attrValue
+        addItem(attrKey, attrValue, node.attr)
         this.status = PARSE_ATTR
     }
 
@@ -302,8 +319,7 @@ class HTMLParse{
 module.exports = HTMLParse
 
 if(module.id === '.'){
-    const template = `
-    <div class="abc">aaa<span>AAASSS</span>zxczx</div>  `
+    const template = `<div class="abc" class="ccc"></div>`
     
     // console.log(JSON.stringify(new HTMLParse(template, 0).parse()));
     console.log(new HTMLParse(template, 0).parse());
