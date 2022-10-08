@@ -9,44 +9,58 @@ function parseHTML(html){
 
 describe('HTMLParse', function () {
   it('Base test 1', function () {
-    const html = `<div class="abc" class="ccc" v-for="i in data">{{i}}</div>`
+    const html = `<div></div>`
     expect(parseHTML(html)).to.eql(
-        {"tag":"div","attr":{"class":["abc","ccc"],"v-for":"i in data"},"type":"ElementNode","children":[{"text":"{{i}}","type":"TextNode"}]}
+      {"tag":"div","attr":{},"type":"ElementNode","children":[]}
     )
   })
 
-  it('Base test 2', function () {
+  it('Attr test 1', function () {
     const html = `<div class= "abc" ></div>`
     expect(parseHTML(html)).to.eql(
       {"tag":"div","attr":{"class":"abc"},"type":"ElementNode","children":[]}
     )
   })
 
-  it('Base test 3', function () {
+  it('Attr test 2', function () {
     const html = `<div class = "abc"></div>`
     expect(parseHTML(html)).to.eql(
       {"tag":"div","attr":{"class":"abc"},"type":"ElementNode","children":[]}
     )
   })
 
-  it('Base test 4', function () {
+  it('Attr test 3', function () {
     const html = `<div class = "abc" name = "111"> </div>`
     expect(parseHTML(html)).to.eql(
       {"tag":"div","attr":{"class":"abc", "name": "111"},"type":"ElementNode","children":[]}
     )
   })
 
-  it('Base test 5', function () {
+  it('Attr test 4', function () {
+    const html = `<div class="abc" class="ccc" v-for="i in data">{{i}}</div>`
+    expect(parseHTML(html)).to.eql(
+        {"tag":"div","attr":{"class":["abc","ccc"],"v-for":"i in data"},"type":"ElementNode","children":[{"text":"{{i}}","type":"TextNode"}]}
+    )
+  })
+
+  it('Text test 1', function () {
     const html = `<div class= "abc" >1</div>`
     expect(parseHTML(html)).to.eql(
       {"tag":"div","attr":{"class":"abc"},"type":"ElementNode","children":[{"text":"1","type":"TextNode"}]}
     )
   })
 
-  it('Base test 5', function () {
+  it('MultiTag test 1', function () {
     const html = `<div class="abc"><span></span></div>`
     expect(parseHTML(html)).to.eql(
-      {"tag":"div","attr":{"class":"abc"},"type":"ElementNode","children":[{"text":"1","type":"TextNode"}]}
+      {"tag":"div","attr":{"class":"abc"},"type":"ElementNode","children":[{"tag":"span","attr":{},"type":"ElementNode","children":[]}]}
+    )
+  })
+
+  it('MultiTag test 2', function () {
+    const html = `<div class="abc"><span><i id = "asd"></i></span></div>`
+    expect(parseHTML(html)).to.eql(
+      {"tag":"div","attr":{"class":"abc"},"type":"ElementNode","children":[{"tag":"span","attr":{},"type":"ElementNode","children":[{"tag":"i","attr":{"id": "asd"},"type":"ElementNode","children":[]}]}]}
     )
   })
 })

@@ -1,6 +1,14 @@
 const parser = require("@babel/parser")
 const HTMLParse = require('./htmlParse')
 
+if(module.id === '.'){
+    const template = `for(const i in data){console.log(i)}`
+    console.log(JSON.stringify(parser.parse(template, {
+        sourceType: "module"
+    }).program.body));
+}
+
+
 module.exports = function(source) {
     let body
     while(true){

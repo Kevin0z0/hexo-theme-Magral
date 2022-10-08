@@ -22,8 +22,14 @@ const TEXT_END             = PARSE_ENUM++
 const PARSE_CLOSING_TAG    = PARSE_ENUM++
 const PARSE_END            = PARSE_ENUM++
 
+const DEBUG = false
+
 const isInstance = (instance, name) => {
     return Object.prototype.toString.call(instance).toLowerCase() === `[object ${name.toLowerCase()}]`
+}
+
+function debug(){
+    DEBUG && console.debug(...arguments)
 }
 
 const addItem = (key, value, obj) => {
@@ -96,24 +102,31 @@ class HTMLParse{
         while(flag){
             switch(this.status){
                 case PARSE_START:
+                    debug('PARSE_START')
                     this.parseStart()
                     break
                 case PARSE_TAG:
+                    debug('PARSE_TAG')
                     this.parseTag(node)
                     break
                 case PARSE_ATTR:
+                    debug('PARSE_ATTR')
                     this.parseAttr(node)
                     break
                 case MAIN_TAG_END:
+                    debug('MAIN_TAG_END')
                     this.mainTagEnd(node)
                     break
                 case PARSE_TEXT:
+                    debug('PARSE_TEXT')
                     this.parseText(node)
                     break
                 case PARSE_CLOSING_TAG:
+                    debug('PARSE_CLOSING_TAG')
                     this.parseClosingTag(node)
                     break
                 case PARSE_END:
+                    debug('PARSE_END')
                     this.parseEnd(node)
                     break
                 case PARSE_DEFAUTE:
@@ -180,7 +193,7 @@ class HTMLParse{
     parseNewNode(node){
         const parser = new HTMLParse(this.source, this.pos-1)
         node.children.push(parser.parse())
-        this.pos = parser.pos + 1
+        this.pos = parser.pos
     }
 
     parseText(node){
@@ -318,17 +331,15 @@ class HTMLParse{
 
 module.exports = HTMLParse
 
-if(module.id === '.'){
-    const template = `<div class="abc"> <span>1</span></div>`
+// if(module.id === '.'){
+//     const template = `<div class="abc"><span><i></i></span></div>`
+//     // const template = `<div class="abc"></div>`
     
-    console.log(JSON.stringify(new HTMLParse(template, 0).parse()));
-    // console.log(new HTMLParse(template, 0).parse());
-}
+//     console.log(JSON.stringify(new HTMLParse(template, 0).parse()));
+//     // console.log(new HTMLParse(template, 0).parse());
+// }
 
-const a = ()=>{
-    const scope = {
-        data: ['1','2','3']
-    }
+const a = (scope)=>{
     return {
         scope,
         "tag": "div",
@@ -344,13 +355,95 @@ const a = ()=>{
     }
 }
 
-var getter = function(expression){
-    const a = 1
-    return new Function('scope, i', 'return i')
+
+const VAR_CHAR = /\w+/
+const START_PARENTHESE = '('
+const CLOSE_PARENTHESE = ')'
+
+
+class BaseExpressionHandler{
+    constructor(expression){
+        this.expression = expression
+        this.pos = 0
+        this.handle()
+    }
+
+    getChar(){
+        return this.expression[this.pos]
+    }
+
+    getCharAndNext(){
+        return this.expression[this.pos++]
+    }
+
+    jumpUselessChar(){
+        let char = this.getChar()
+        while(isUselessChar(char)){
+            this.pos++
+            char = this.getChar()
+        }
+    }
+
+    __getVars(){
+        this.jumpUselessChar()
+        let char = this.getChar()
+        const arr = []
+        while(char !== CLOSE_PARENTHESE){
+            if(char === ','){
+                this.jumpUselessChar()
+                char = this.getChar()
+                continue 
+            }
+            this.jumpUselessChar()
+            arr.push(this.getVariable())
+            this.jumpUselessChar()
+            char = this.getCharAndNext()
+        }
+        return arr
+    }
+
+    getVariable(){
+        let char = this.getChar()
+        if(char === START_PARENTHESE){
+            this.pos++
+            return this.__getVars()
+        }
+        let strArr = []
+        while(VAR_CHAR.test(char)){
+            strArr.push(char)
+            this.pos++
+            char = this.getChar()
+        }
+        return strArr.join(EMPTY)
+    }
+
+    handle(){
+        throw new Error("Function handle must be overwrited")
+    }
 }
 
-var model = {
-    message: "data from res getter"
+class VFor extends BaseExpressionHandler{
+    constructor(expression){
+        super(expression)
+        this.var = []
+        this.scope = null
+    }
+    handle(){
+        this.jumpUselessChar()
+        this.var.extend(this.getVariable())
+    }
 }
 
-console.log((getter.call(null, 'message'))(model));
+console.log(new VFor("(i,j) in data"));
+
+
+// var getter = function(expression){
+//     const a = 1
+//     return new Function('scope, i', 'return i')
+// }
+
+// var model = {
+//     message: "data from res getter"
+// }
+
+// console.log((getter.call(null, 'message'))(model));
