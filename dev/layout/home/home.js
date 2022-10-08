@@ -22,7 +22,7 @@ const lazyLoadInstance = new LazyLoad({
 banner()
 
 const a = () => {
-    return <div class="aaa">bbbb</div>
+    return <div class="abc" v-for="i in data">{{i}}</div>
 }
 
 const typed = document.getElementsByClassName('typed')[0]

@@ -319,8 +319,38 @@ class HTMLParse{
 module.exports = HTMLParse
 
 if(module.id === '.'){
-    const template = `<div class="abc" class="ccc"></div>`
+    const template = `<div class="abc"> <span>1</span></div>`
     
-    // console.log(JSON.stringify(new HTMLParse(template, 0).parse()));
-    console.log(new HTMLParse(template, 0).parse());
+    console.log(JSON.stringify(new HTMLParse(template, 0).parse()));
+    // console.log(new HTMLParse(template, 0).parse());
 }
+
+const a = ()=>{
+    const scope = {
+        data: ['1','2','3']
+    }
+    return {
+        scope,
+        "tag": "div",
+        "attr": {
+            "class": "abc",
+            "v-for": "i in data"
+        },
+        "type": "ElementNode",
+        "children": [{
+            "text": "{{i}}",
+            "type": "TextNode"
+        }]
+    }
+}
+
+var getter = function(expression){
+    const a = 1
+    return new Function('scope, i', 'return i')
+}
+
+var model = {
+    message: "data from res getter"
+}
+
+console.log((getter.call(null, 'message'))(model));
