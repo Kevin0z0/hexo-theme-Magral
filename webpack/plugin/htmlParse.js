@@ -32,17 +32,40 @@ function debug(){
     DEBUG && console.debug(...arguments)
 }
 
+const PROPS = ['v-if', 'v-for']
+
+
+const handleProps = (key, value, props) => {
+    const temp = key.substring(2)
+    for(const item of props){
+        if(item.name === temp){
+            throw new Error('Props confliction')
+        }
+    }
+    switch(key){
+        case 'v-for':
+            props.append(new VFor(value))
+            break
+        default:
+            break
+    }
+}
+
 const addItem = (key, value, obj) => {
-    if(key in obj){
+    if(PROPS.includes(key)){
+        return handleProps(key, value, obj.props)
+    }
+    const attr = obj.attr
+    if(key in attr){
         if(value === EMPTY) return
-        const data = obj[key]
+        const data = attr[key]
         if(isInstance(data, 'array')){
             data.push(value)
         }else{
-            obj[key] = [data, value]
+            attr[key] = [data, value]
         }
     }else{
-        obj[key] = value
+        attr[key] = value
     }
 }
 
@@ -54,6 +77,8 @@ class ElementNode {
        this.children = [];
        this.selfClosing = false
        this.comment = false
+       this.props = []
+       this.dynamicAttr = {}
     }
 
     toJSON(){
@@ -75,6 +100,99 @@ class TextNode {
         return {
             text: this.content,
             type: 'TextNode',
+        }
+    }
+}
+
+
+const VAR_CHAR = /\w+/
+const START_PARENTHESE = '('
+const CLOSE_PARENTHESE = ')'
+
+
+class BaseExpressionHandler{
+    constructor(expression){
+        this.expression = expression
+        this.pos = 0
+    }
+
+    getChar(){
+        return this.expression[this.pos]
+    }
+
+    getCharAndNext(){
+        return this.expression[this.pos++]
+    }
+
+    jumpUselessChar(){
+        let char = this.getChar()
+        while(isUselessChar(char)){
+            this.pos++
+            char = this.getChar()
+        }
+    }
+
+    __getVars(){
+        this.jumpUselessChar()
+        let char = this.getChar()
+        const arr = []
+        while(char !== CLOSE_PARENTHESE){
+            if(char === ','){
+                this.jumpUselessChar()
+                char = this.getChar()
+                continue 
+            }
+            this.jumpUselessChar()
+            arr.push(this.getVariable())
+            this.jumpUselessChar()
+            char = this.getCharAndNext()
+        }
+        return arr
+    }
+
+    getVariable(){
+        let char = this.getChar()
+        if(char === START_PARENTHESE){
+            this.pos++
+            return this.__getVars()
+        }
+        let strArr = []
+        while(char && VAR_CHAR.test(char)){
+            strArr.push(char)
+            this.pos++
+            char = this.getChar()
+        }
+        return strArr.join(EMPTY)
+    }
+
+    handle(){
+        throw new Error("Function handle must be overwrited")
+    }
+}
+
+class VFor extends BaseExpressionHandler{
+    constructor(expression){
+        super(expression)
+        this.local = []
+        this.var = null
+        this.handle()
+    }
+    handle(){
+        this.jumpUselessChar()
+        this.local.extend(this.getVariable())
+        this.pos++
+        if(this.getVariable() !== 'in'){
+            throw new Error("v-for expression must use in")
+        }
+        this.pos++
+        this.var = this.getVariable()
+    }
+
+    toJSON(){
+        return {
+            local: this.local,
+            var: this.var,
+            name: 'for'
         }
     }
 }
@@ -292,7 +410,7 @@ class HTMLParse{
         attrKey = attrKey.join(EMPTY)
         this.jumpUselessChar()
         if((char = this.getChar()) !== EQUAL){
-            addItem(attrKey, EMPTY, node.attr)
+            addItem(attrKey, EMPTY, node)
             this.status = PARSE_ATTR
             return
         }else{
@@ -300,7 +418,7 @@ class HTMLParse{
             this.jumpUselessChar()
         }
         let attrValue = this.parseAttrValue()
-        addItem(attrKey, attrValue, node.attr)
+        addItem(attrKey, attrValue, node)
         this.status = PARSE_ATTR
     }
 
@@ -331,110 +449,37 @@ class HTMLParse{
 
 module.exports = HTMLParse
 
-// if(module.id === '.'){
-//     const template = `<div class="abc"><span><i></i></span></div>`
-//     // const template = `<div class="abc"></div>`
+if(module.id === '.'){
+    const template = `<div class="abc" v-for="i in data">{{i}}</div>`
+    // const template = `<div class="abc"></div>`
     
-//     console.log(JSON.stringify(new HTMLParse(template, 0).parse()));
-//     // console.log(new HTMLParse(template, 0).parse());
-// }
+    console.log(JSON.stringify(new HTMLParse(template, 0).parse()));
+    // console.log(new HTMLParse(template, 0).parse());
+}
+
+Array.prototype.extend = function(data){
+    if(isInstance(data, "array")){
+        this.push.apply(this, data)
+    }else if(isInstance(data, "string")){
+        this.push(data)
+    }
+}
 
 const a = (scope)=>{
     return {
-        scope,
-        "tag": "div",
-        "attr": {
-            "class": "abc",
-            "v-for": "i in data"
+        "tag":"div",
+        "attr":{
+            "class":"abc",
+            "v-for":"i in data"
         },
-        "type": "ElementNode",
-        "children": [{
-            "text": "{{i}}",
-            "type": "TextNode"
-        }]
+        "type":"ElementNode","children":[
+            {"text":"{{i}}","type":"TextNode"}
+        ]
     }
 }
 
 
-const VAR_CHAR = /\w+/
-const START_PARENTHESE = '('
-const CLOSE_PARENTHESE = ')'
-
-
-class BaseExpressionHandler{
-    constructor(expression){
-        this.expression = expression
-        this.pos = 0
-        this.handle()
-    }
-
-    getChar(){
-        return this.expression[this.pos]
-    }
-
-    getCharAndNext(){
-        return this.expression[this.pos++]
-    }
-
-    jumpUselessChar(){
-        let char = this.getChar()
-        while(isUselessChar(char)){
-            this.pos++
-            char = this.getChar()
-        }
-    }
-
-    __getVars(){
-        this.jumpUselessChar()
-        let char = this.getChar()
-        const arr = []
-        while(char !== CLOSE_PARENTHESE){
-            if(char === ','){
-                this.jumpUselessChar()
-                char = this.getChar()
-                continue 
-            }
-            this.jumpUselessChar()
-            arr.push(this.getVariable())
-            this.jumpUselessChar()
-            char = this.getCharAndNext()
-        }
-        return arr
-    }
-
-    getVariable(){
-        let char = this.getChar()
-        if(char === START_PARENTHESE){
-            this.pos++
-            return this.__getVars()
-        }
-        let strArr = []
-        while(VAR_CHAR.test(char)){
-            strArr.push(char)
-            this.pos++
-            char = this.getChar()
-        }
-        return strArr.join(EMPTY)
-    }
-
-    handle(){
-        throw new Error("Function handle must be overwrited")
-    }
-}
-
-class VFor extends BaseExpressionHandler{
-    constructor(expression){
-        super(expression)
-        this.var = []
-        this.scope = null
-    }
-    handle(){
-        this.jumpUselessChar()
-        this.var.extend(this.getVariable())
-    }
-}
-
-console.log(new VFor("(i,j) in data"));
+console.log(new VFor("(item, key, index) in data"));
 
 
 // var getter = function(expression){
