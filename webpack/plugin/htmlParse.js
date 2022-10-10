@@ -28,6 +28,15 @@ const isInstance = (instance, name) => {
     return Object.prototype.toString.call(instance).toLowerCase() === `[object ${name.toLowerCase()}]`
 }
 
+
+Array.prototype.extend = function(data){
+    if(isInstance(data, "array")){
+        this.push.apply(this, data)
+    }else if(isInstance(data, "string")){
+        this.push(data)
+    }
+}
+
 function debug(){
     DEBUG && console.debug(...arguments)
 }
@@ -44,7 +53,7 @@ const handleProps = (key, value, props) => {
     }
     switch(key){
         case 'v-for':
-            props.append(new VFor(value))
+            props.push(new VFor(value))
             break
         default:
             break
@@ -86,7 +95,9 @@ class ElementNode {
             tag: this.tag,
             attr: this.attr,
             type: 'ElementNode',
-            children: this.children
+            children: this.children,
+            props: this.props,
+            dynamicAttr: this.dynamicAttr
         }
     }
 }
@@ -185,7 +196,7 @@ class VFor extends BaseExpressionHandler{
             throw new Error("v-for expression must use in")
         }
         this.pos++
-        this.var = this.getVariable()
+        this.var = this.expression.substring(this.pos)
     }
 
     toJSON(){
@@ -457,14 +468,6 @@ if(module.id === '.'){
     // console.log(new HTMLParse(template, 0).parse());
 }
 
-Array.prototype.extend = function(data){
-    if(isInstance(data, "array")){
-        this.push.apply(this, data)
-    }else if(isInstance(data, "string")){
-        this.push(data)
-    }
-}
-
 const a = (scope)=>{
     return {
         "tag":"div",
@@ -479,7 +482,7 @@ const a = (scope)=>{
 }
 
 
-console.log(new VFor("(item, key, index) in data"));
+// console.log(new VFor("(item, key, index) in data"));
 
 
 // var getter = function(expression){
