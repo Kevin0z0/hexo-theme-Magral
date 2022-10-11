@@ -4,6 +4,10 @@ const isInstance = (instance, name) => {
 
 const instance = i => /\[object (.*)\]/.exec(Object.prototype.toString.call(i).toLowerCase())
 
+const EXPRESSION_CHAR = /\w+/
+const USELESS_CHAR = " \t\n"
+
+const isUselessChar = char => USELESS_CHAR.includes(char)
 const data = (scope) => {
     return {
         scope,
@@ -65,14 +69,60 @@ function getLength(obj){
     return Object.keys(obj).length
 }
 
-function handleNode(tree){
+class ExpressionHandler{
+    constructor(global, local, expression){
+        this.global = global
+        this.local = local
+        this.expression = expression
+        this.pos = 0
+        this.len = expression.length
+        this.handle()
+    }
+
+    getChar(){
+        return this.expression[this.pos]
+    }
+
+    jumpUselessChar(){
+        let char = this.getChar()
+        while(isUselessChar(char)){
+            this.pos++
+            char = this.getChar()
+        }
+    }
+
+    handle(){
+        const contents = []
+        while(this.pos < this.len){
+            this.jumpUselessChar()
+            contents.push(this.getVariable())
+        }
+        console.log(contents);
+    }
+
+    getVariable(){
+        let char = this.getChar()
+        const strArr = []
+        while(char && VAR_CHAR.test(char)){
+            strArr.push(char)
+            this.pos++
+            char = this.getChar()
+        }
+        return strArr.join('')
+    }
+}
+
+new ExpressionHandler({"a":1}, {"i": 2}, "i")
+
+function handleNode(tree, local){
     const tag = document.createElement(tree.tag)
-    if('attr' in tree){
+    if(tree.attr){
         const attr = tree.attr
         for(const i in attr){
             tag.setAttribute(i, attr[i])
         }
     }
+    
     return tag
 }
 
@@ -90,7 +140,7 @@ function handleProps(node, tree){
                 for(let index = 0; index < i.local.length; index++){
                     handle(index, count)
                 }
-                node.appendChild(handleNode(tree))
+                node.appendChild(handleNode(tree, local))
             }
             
             
@@ -112,6 +162,6 @@ function createNode(node, tree) {
     // return tag
 }
 
-console.log(createNode(document.getElementById("main"), data({
-    "data": {'a':1, 'b':'v', 'c': 'd'}
-})));
+// console.log(createNode(document.getElementById("main"), data({
+//     "data": {'a':1, 'b':'v', 'c': 'd'}
+// })));
