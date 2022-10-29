@@ -1,7 +1,7 @@
 <footer class="footer radius">
     <div class="footer__icon">
         <% for(const i of theme.icons) {%>
-            <a class="tippy-top <%=i.icon%>" data-tippy-placement="top"
+            <a class="tippy-top <%=i.icon%>" data-tippy-placement="top" <%=i.title ? `title=${i.title}` : ""%>
                 data-tippy-content="<%=i.name ? i.name : `<img src='${i.img}' ${i.width && "style='width:" + i.width + "rem'"}>`%>" 
                 style="font-size: <%=i.size || 2%>rem;" <%=i.url && `href=${i.url} target=_blank`%>> 
             </a>

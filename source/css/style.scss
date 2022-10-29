@@ -38,7 +38,7 @@ html {
 
 body{
     background-color: theme('background');
-    overflow-x: hidden;
+    overflow: hidden;
 }
 
 a{
@@ -61,3 +61,4 @@ $radius-small: .7rem;
 @import './layout/footer';
 @import './layout/home/main';
 @import './components/main';
+@import './components/articles';

@@ -470,6 +470,7 @@ if(module.id === '.'){
 
 const a = (scope)=>{
     return {
+        scope,
         "tag":"div",
         "attr":{
             "class":"abc",

@@ -2,8 +2,8 @@ import '../../components/icon'
 import LazyLoad from "vanilla-lazyload"
 import banner from './banner'
 import Typed from 'typed.js';
-import '../../components/recommend'
 
+if(recommend) import('../../components/recommend')
 
 const menu = document.getElementsByClassName("header-big__center__list-name")
 for(const i of menu){
@@ -21,9 +21,7 @@ const lazyLoadInstance = new LazyLoad({
 
 banner()
 
-const a = () => {
-    return <div class="abc" v-for="i in data">{{i}}</div>
-}
+
 
 const typed = document.getElementsByClassName('typed')[0]
 let typedHeight

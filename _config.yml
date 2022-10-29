@@ -62,6 +62,7 @@ icons:
   - icon: iconfont icon-weixin
     img: /medias/qrcode.jpg
     width: 10
+    title: 微信
 
     
 
@@ -152,8 +153,11 @@ subtitle:
     - Never really desperate, only the lost of the soul
 
 recommend:
-  enable: true
+  enable: false
   name: Recommend
+
+article:
+  name: Articles
 
 svgBackground:
   enable: true

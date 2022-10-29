@@ -64,3 +64,14 @@ describe('HTMLParse', function () {
     )
   })
 })
+
+const ExpressionParse = require('../expressionParser')
+
+describe("Expression Parser", function(){
+  it('Base test 1', function () {
+    const html = `<div></div>`
+    expect(parseHTML(html)).to.eql(
+      {"tag":"div","attr":{},"type":"ElementNode","children":[]}
+    )
+  })
+})

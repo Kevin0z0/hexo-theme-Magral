@@ -1,7 +1,7 @@
 <div class="header-big" >
     <div class="header-big__left">
         <% for(const i of theme.icons) {%>
-            <a class="tippy-right <%=i.icon%>" data-tippy-placement="right"
+            <a class="tippy-right <%=i.icon%>" data-tippy-placement="right" <%=i.title ? `title=${i.title}` : ""%>
                 data-tippy-content="<%=i.name ? i.name : `<img src='${i.img}' ${i.width && "style='width:" + i.width + "rem'"}>`%>" 
                 style="font-size: <%=i.size || 2%>rem;" <%=i.url && `href=${i.url} target=_blank`%>> 
             </a>
