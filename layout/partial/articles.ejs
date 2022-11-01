@@ -1,14 +1,41 @@
 <div class="articles margin ">
-    <div class="articles__dot">
-        <%for(let i = 0; i < 10; i++){%>
-            <div class="articles__dot-row">
-                <%for(let i = 0; i < 20; i++){%>
-                    <span></span>
-                    
-                <%}%>
+    <div class="articles__head clearfix">
+        <div class="articles__dot">
+            <%for(let i = 0; i < 10; i++){%>
+                <div class="articles__dot-row">
+                    <%for(let i = 0; i < 20; i++){%>
+                        <span></span>
+                    <%}%>
+                </div>
+            <%}%>
+        </div>
+    
+        <a class="fl section-title articles__title" href="#<%= theme.article.name %>"><span>#</span> <span><%= theme.article.name %></span></a>
+    </div>
+    <div class="articles__main">
+        <% for(const item of page.posts.data) {%>
+        <div class="articles__item">
+            <a class="articles__item__img" href="<%=path%>">
+                <div class="articles__item__img-front"><div class="articles__item__img-content lazy" data-bg="<%=item.img%>"></div></div>
+                <div class="articles__item__img-back lazy" data-bg="<%=item.img%>"></div>
+            </a>
+            <div class="articles__item__tags">
+                <% for(const tag of item.tags.data) {%>
+                    <%- partial('partial/tag', {info: {name:tag.name, path:""}, hover: false}) %>   
+                <% } %>
             </div>
-        <%}%>
+            <div class="articles__item__title">
+                <a href="<%=path%>" title="利用门描述符从3环进入0环"><%=item.title%></a>
+            </div>
+            <div class="articles__item__desc">
+                <p><%=strip_html(item.content).substring(0, 120) %></p>
+            </div>
+            <div class="articles__item__end clearfix">
+                <span class="articles__item__date fl"><%=date(item.date, theme.dateFormat)%></span>
+                <a class="articles__item__cata fr" href="#">#Catagroy</a>
+            </div>
+        </div>
+        <% } %>
     </div>
 
-    <a class="fl section-title" href="#<%= theme.article.name %>"><span>#</span> <span><%= theme.article.name %></span></a>
 </div>

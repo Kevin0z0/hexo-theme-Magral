@@ -40,7 +40,10 @@ sass:
     footer: $primaryColor
 
     primaryFontColor: '#414141'
-    secondaryFontColor: '#A9A9A9'
+    secondaryFontColor: '#707070'
+    tertiaryFontColor: '#A9A9A9'
+
+    border: '#CFCFCF'
 
   dark:
     background: "#000"
@@ -64,7 +67,8 @@ icons:
     width: 10
     title: 微信
 
-    
+banner:
+  switchTime: 5000
 
 menu:
   index:

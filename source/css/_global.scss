@@ -1,7 +1,12 @@
 @mixin tag-gradient {
-    background: var(--primary-color);
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--gradual-color) 100%);
     color: #FFF;
+    &{
+        background:transparent;
+    }
+    &::after{
+        visibility: visible;
+        opacity: 1;
+    }
 }
 
 .tag{
@@ -9,13 +14,30 @@
     background: var(--secondary-color);
     border-radius: 0.7rem;
     display: inline-block;
-    transition: .1s;
+    transition: .2s;
     color: var(--primary-color);
     transform: scale(.85);
     font-size: 1rem;
+    position: relative;
+    overflow: hidden;
 
+    &::after{
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: var(--primary-color);
+        background: linear-gradient(135deg, var(--primary-color) 0%, var(--gradual-color) 100%);
+        visibility: hidden;
+        opacity: 0;
+        z-index: -1;
+        transition: .2s;
+    }
     &:hover{
         @include tag-gradient;
+
     }
 
     &__hover{
@@ -108,4 +130,8 @@
 .section-title{
     font-size: 3.6rem;
     font-weight: 900;
+
+    &:hover{
+        text-decoration: underline;
+    }
 }

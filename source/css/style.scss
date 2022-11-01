@@ -7,6 +7,8 @@
     --bg-color: #{theme('background')};
     --primary-font-color: #{theme('primaryFontColor')};
     --secondary-font-color: #{theme('secondaryFontColor')};
+    --tertiary-font-color: #{theme('tertiaryFontColor')};
+    --border-color: #{theme('border')};
 }
 
 @function getDark($name){

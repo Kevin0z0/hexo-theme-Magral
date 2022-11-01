@@ -30,9 +30,12 @@ const recommendInfo = recommend.map(v=>{
 
 const preset = {
     jsVar: {
+        author: theme.author,
         bannerInfo,
         typedConfig: theme.subtitle,
-        recommendInfo
+        recommendInfo,
+        bannerSwitchTime: theme.banner.switchTime,
+        recommend: theme.recommend.enable
     }
 }
 
@@ -57,8 +60,8 @@ const preset = {
 <% if(theme.recommend.enable) {%> 
     <%- partial("partial/recommend", {recommendInfo}) %> 
 <% } %> 
-<%- partial("partial/articles") %>
+<%- partial("partial/articles", {posts: site.posts}) %>
 </main>
 
 <%- include("footer.ejs") %> 
-<%-include("foot.ejs")%>
+<%- include("foot.ejs")%>

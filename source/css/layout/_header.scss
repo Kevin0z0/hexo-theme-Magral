@@ -31,7 +31,7 @@ header{
         & > a{
             display: block;
             font-size: 2rem;
-            color: var(--secondary-font-color);
+            color: var(--tertiary-font-color);
             text-align: center;
             transition: $color-transition;
             cursor: pointer;
@@ -100,7 +100,7 @@ header{
         margin-top: 2rem;
         span{
             font-size: 2.6rem;
-            color: var(--secondary-font-color);
+            color: var(--tertiary-font-color);
             margin: 0 .75rem;
             cursor: pointer;
             transition: $color-transition;

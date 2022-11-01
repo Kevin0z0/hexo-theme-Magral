@@ -4,6 +4,7 @@
   "description": "",
   "scripts": {
     "pack": "webpack --mode production",
+    "pack:release": "webpack --mode production",
     "pack:dev": "webpack --mode development",
     "start": "webpack-dev-server --mode development",
     "serve": "cd ../../ && hexo server",
