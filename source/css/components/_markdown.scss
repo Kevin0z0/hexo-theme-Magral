@@ -1,0 +1,208 @@
+.md{
+    width: 80%;
+    margin: 0 auto;
+    max-width: 100rem;
+    font-family: 'Microsoft Yahei';
+    code{
+        font-family: inherit;
+    }
+    h1, h2, h3, h4, h5, h6{
+        a{
+            margin: 2rem 0;
+            display: inline-block;
+            transition: .2s;
+            cursor: pointer;
+            color: var(--primary-font-color);
+            word-break: break-all;
+            &:hover{
+                color: var(--primary-color);
+                text-decoration: underline;
+            }
+        }
+    }
+    h1{
+        font-size: 3.2rem;
+    }
+
+    h2{
+        font-size: 2.8rem;
+    }
+
+    h3{
+        font-size: 2.4rem;
+    }
+
+    h4{
+        font-size: 2rem;
+    }
+
+    h5{
+        font-size: 1.8rem;
+    }
+
+    h6{
+        font-size: 1.6rem;
+    }
+
+    p{
+        font-size: 1.6rem;
+        line-height: 3rem;
+        color: var(--primary-font-color);
+
+        a{
+            color: var(--contrast);
+            text-decoration: underline;
+            &:hover{
+                // color: var(--contrast-secondary);
+                filter: contrast(175%);
+            }
+        }
+    }
+
+    code:not(pre code){
+        background-color: var(--secondary-color);
+        color: var(--primary-color);
+        padding: 0 0.6rem;
+        border-radius: 0.6rem;
+        font-size: 1.2rem;
+        margin: 0 0.2rem;
+        font-weight: 900;
+        display: inline-block;
+        transition: .2s transform;
+        transform: scale(0.96) rotate(0deg);
+        line-height: 2.5rem;
+        &:hover{
+            transform: scale(1) rotate(3deg);
+        }
+    }
+
+    &__code{
+        margin: 1rem 0;
+        border-radius: 1rem;
+        overflow: hidden;
+        // padding-top: 2rem;
+        background-color: rgb(30,30,30);
+        color: var(--secondary-font-color);
+        padding: 0.6rem 0.8rem;
+
+        &__head{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        &__btn{
+            width: 1.2rem;
+            height: 1.2rem;
+            display: inline-block;
+            background: #f95b52;
+            border-radius: 3rem;
+            box-shadow: 20px 0 #fdbc2f, 40px 0 #28cb40;
+        }
+
+        &__language{
+            font-weight: 900;
+            text-transform: Capitalize;
+        }
+
+        &__copy{
+            cursor: pointer;
+        }
+    }
+
+    ol li{
+        list-style-type: decimal !important;
+    }
+
+    ul[class^='lvl-'], ol{
+        padding-left: 2rem;
+        li{
+            list-style-type: disc;
+            font-size: 1.6rem;
+            line-height: 3rem;
+            color: var(--primary-font-color);
+
+            &:has(> input[type="checkbox"]) {
+                list-style-type: none;
+            }
+
+            & > input{
+                vertical-align: middle;
+                margin-right: .4rem;
+            }
+        }
+    }
+
+
+
+    pre[class*=language-]{
+        margin: 0;
+    }
+
+    img{
+        margin: 2rem auto 0;
+        display: block;
+        border-radius: .6rem;
+        max-width: 80%;
+        max-height: 88rem;
+        cursor: pointer;
+    }
+
+    .img__title{
+        font-size: 1.4rem;
+        font-weight: 900;
+        text-align: center;
+        span{
+            color: var(--primary-font-color);
+            text-decoration: underline;
+        }
+    }
+
+    table{
+        width: 100%;
+        margin: 2rem 0;
+        border: .2rem solid var(--secondary-color);
+        color: var(--primary-font-color);
+        border-radius: 1rem;
+        overflow: hidden;
+        border-spacing: 0;
+        table-layout: fixed;
+        td, th{
+            display: table-cell;
+            padding: 1rem 2rem;
+            font-size: 1.4rem;
+            transition: .2s;
+            border-right: .2rem solid var(--secondary-color);
+            border-bottom: .2rem solid var(--secondary-color);
+            word-break: break-word;
+            &:last-child{
+                border-right: none !important;
+            }
+        }
+
+        tr{
+            transition: .2s;
+            &:hover{
+                background-color: var(--secondary-color);
+                td, th{
+                    border-right: .2rem solid var(--bg-color);
+                }
+            }
+            &:last-child{
+                td{
+                    border-bottom: none;
+                }
+            }
+        }
+
+        // thead, tr:nth-child(even){
+        //     background-color:var(--secondary-color);
+        //     border: none;
+        // }
+
+        tr{
+            // background-color: var();
+        }
+    }
+    
+}

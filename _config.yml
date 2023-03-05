@@ -67,6 +67,9 @@ icons:
     width: 10
     title: 微信
 
+highlight:
+  enable: true
+
 banner:
   switchTime: 5000
 
@@ -166,3 +169,6 @@ article:
 svgBackground:
   enable: true
   color: "#ffdfe1"
+
+markdown:
+  tag_rotate: true

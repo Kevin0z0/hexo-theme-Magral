@@ -1,0 +1,12 @@
+<%- partial('head', {}, {cache: true}) %>
+<link rel="stylesheet" href="<%=fillPath("css/external/prism.css")%>">
+<script src='<%=fillPath("js/external/prism.js")%>'></script>
+<main class="post">
+    <div class="md">
+        <%- page.content %>
+    </div>
+</main>
+
+
+<%- include("footer.ejs") %> 
+<%- include("foot.ejs")%>

@@ -97,7 +97,7 @@ class ExpressionHandler{
             this.jumpUselessChar()
             contents.push(this.getVariable())
         }
-        console.log(contents);
+        // console.log(contents);
     }
 
     getVariable(){

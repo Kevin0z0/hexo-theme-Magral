@@ -15,24 +15,31 @@
     <div class="articles__main">
         <% for(const item of page.posts.data) {%>
         <div class="articles__item">
-            <a class="articles__item__img" href="<%=path%>">
-                <div class="articles__item__img-front"><div class="articles__item__img-content lazy" data-bg="<%=item.img%>"></div></div>
-                <div class="articles__item__img-back lazy" data-bg="<%=item.img%>"></div>
+            <a class="articles__item__img" href="<%=fillPath(item.path)%>">
+                <div class="articles__item__img-front"><div class="articles__item__img-content lazy" data-bg="<%=fillPath(item.img || '/medias/default.png')%>"></div></div>
+                <div class="articles__item__img-back lazy" data-bg="<%=fillPath(item.img || '/medias/default.png')%>"></div>
             </a>
             <div class="articles__item__tags">
-                <% for(const tag of item.tags.data) {%>
-                    <%- partial('partial/tag', {info: {name:tag.name, path:""}, hover: false}) %>   
+                <% for(const tag of item.tags.data) {
+                    // console.log(tag)
+                %>
+                
+                    <%- partial('partial/tag', {info: {name:tag.name, path:tag.path}, hover: false}) %>   
                 <% } %>
             </div>
             <div class="articles__item__title">
-                <a href="<%=path%>" title="利用门描述符从3环进入0环"><%=item.title%></a>
+                <a href="<%=fillPath(item.path)%>" title="<%=item.title%>"><%=item.title%></a>
             </div>
             <div class="articles__item__desc">
                 <p><%=strip_html(item.content).substring(0, 120) %></p>
             </div>
-            <div class="articles__item__end clearfix">
-                <span class="articles__item__date fl"><%=date(item.date, theme.dateFormat)%></span>
-                <a class="articles__item__cata fr" href="#">#Catagroy</a>
+            <div class="articles__item__end">
+                <span class="articles__item__date"><%=date(item.date, theme.dateFormat)%></span>
+                <div class="articles__item__catas">
+                <% for(const cata of item.categories.data){ %>
+                    <a class="" href="<%=fillPath(cata.path)%>">#<%=cata.name%></a>
+                <%}%>
+                </div>
             </div>
         </div>
         <% } %>

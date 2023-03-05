@@ -7,10 +7,15 @@ function insertChildren(element, node){
         }
     }else if(isInstance(node, 'object')){
         element.appendChild(createNode(node))
+    }else if(isInstance(node, 'string')){
+        element.innerText = node
+    }else{
+        element.appendChild(node)
     }
 }
 
-function createNode(node){
+
+export function createNode(node){
     if(!('ele' in node)){ throw new Error("ele attribute is required") }
     const ele = document.createElement(node.ele)
     if('attr' in node){

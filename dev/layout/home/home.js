@@ -3,6 +3,7 @@ import LazyLoad from "vanilla-lazyload"
 import banner from './banner'
 import Typed from 'typed.js';
 
+
 if(recommend) import('../../components/recommend')
 
 const menu = document.getElementsByClassName("header-big__center__list-name")

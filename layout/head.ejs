@@ -5,12 +5,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= theme.title %></title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css" integrity="sha384-vKruj+a13U8yHIkAyGgK1J3ArTLzrFGBbBc0tDp4ad/EyewESeXE/Iv67Aj8gKZ0" crossorigin="anonymous">
+    <style>
+        <%if(!theme.markdown.tag_rotate){%>
+    <%=`.md code:not(pre code):hover{
+        transform: scale(1) rotate(0deg) !important;
+    }`%>
+        <%}%>
+    </style>
     <%- css('css/fonts/iconfont') %>
     <%- theme.dev ? css('css/style') : css('css/prod_style') %>
     <script>
-    <% for(const i in jsVar){ %>
+    <% if(typeof(jsVar) !== 'undefined'){for(const i in jsVar){ %>
         <%-`const ${i}=${JSON.stringify(jsVar[i])}`%>
-    <% } %>
+    <% }} %>
     </script>
 </head>
 <body>

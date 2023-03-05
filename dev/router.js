@@ -5,6 +5,7 @@ class Router{
         this.__routes = routes
         this.__path = decodeURIComponent(window.location.pathname)
         this.__run()
+        window.$__router__$ = this
     }
 
     testPath(path){
@@ -37,7 +38,12 @@ class Router{
 new Router([
     {
         name: "index",
-        path: '/',
+        path: /^\/(index\.html)?$/,
         layout: () => import('./layout/home/home')
+    },
+    {
+        name: "post",
+        path: /^\/\d{4}\/\d{2}\/\d{2}\/*/,
+        layout: () => import("./layout/post/index")
     }
 ])

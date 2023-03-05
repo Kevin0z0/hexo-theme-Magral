@@ -27,6 +27,10 @@ export const isNumber = (val) => {
     return isInstance(value, 'number')
 }
 
+export const isElement = (val) => {
+    return (val instanceof Element)
+}
+
 export const throttle = (fn, delay) => {
     let valid = true
     return () => {
