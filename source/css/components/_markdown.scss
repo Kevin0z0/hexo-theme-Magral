@@ -1,12 +1,27 @@
+.viewer-toolbar > ul > li{
+    width: 30px !important;
+    height: 30px !important;
+    &::before{
+        margin:5px !important;
+    }
+    margin: 0 .5rem;
+}
+
+.viewer-toolbar > ul > .viewer-large{
+    width: 36px !important;
+    height: 36px !important;
+    &::before{
+        margin: 8px !important;
+    }
+}
+
 .md{
-    width: 80%;
-    margin: 0 auto;
-    max-width: 100rem;
     font-family: 'Microsoft Yahei';
     code{
         font-family: inherit;
     }
     h1, h2, h3, h4, h5, h6{
+        color: var(--primary-font-color);
         a{
             margin: 2rem 0;
             display: inline-block;
@@ -20,28 +35,52 @@
             }
         }
     }
+
     h1{
         font-size: 3.2rem;
+        a code:not(pre code){
+            font-size: 3rem;
+            padding: 1rem 1rem;
+        }
     }
 
     h2{
         font-size: 2.8rem;
+        a code:not(pre code){
+            font-size: 2.6rem;
+            padding: 0.6rem 1rem;
+        }
     }
 
     h3{
         font-size: 2.4rem;
+        a code:not(pre code){
+            font-size: 2.2rem;
+            padding: 0.5rem 0.8rem;
+        }
     }
 
     h4{
         font-size: 2rem;
+        a code:not(pre code){
+            font-size: 1.8rem;
+            padding: 0.3rem 0.8rem;
+        }
     }
 
     h5{
         font-size: 1.8rem;
+        a code:not(pre code){
+            font-size: 1.6rem;
+            padding: 0.2rem 0.6rem;
+        }
     }
 
     h6{
         font-size: 1.6rem;
+        a code:not(pre code){
+            font-size: 1.4rem;
+        }
     }
 
     p{
@@ -107,6 +146,10 @@
 
         &__copy{
             cursor: pointer;
+            transition: .2s;
+            &:hover{
+                color: var(--tertiary-font-color);
+            }
         }
     }
 
@@ -115,6 +158,7 @@
     }
 
     ul[class^='lvl-'], ol{
+        margin: 2rem 0;
         padding-left: 2rem;
         li{
             list-style-type: disc;
@@ -180,6 +224,10 @@
             }
         }
 
+        td:not([style]){
+            text-align: center;
+        }
+
         tr{
             transition: .2s;
             &:hover{
@@ -193,15 +241,6 @@
                     border-bottom: none;
                 }
             }
-        }
-
-        // thead, tr:nth-child(even){
-        //     background-color:var(--secondary-color);
-        //     border: none;
-        // }
-
-        tr{
-            // background-color: var();
         }
     }
     

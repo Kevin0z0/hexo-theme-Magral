@@ -8,10 +8,11 @@ function insertChildren(element, node){
     }else if(isInstance(node, 'object')){
         element.appendChild(createNode(node))
     }else if(isInstance(node, 'string')){
-        element.innerText = node
+        element.innerHTML += node
     }else{
         element.appendChild(node)
     }
+    return element
 }
 
 
@@ -34,6 +35,6 @@ export function addNode(field, node){
     if(isStr(field)){
         field = document.querySelectorAll(field)
     }
-    insertChildren(field, node)
+    return insertChildren(field, node)
 }
 

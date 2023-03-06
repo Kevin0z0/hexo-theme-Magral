@@ -16,12 +16,13 @@ function init(){
     }
 
     for(const i of document.querySelectorAll('.md > h1,h2,h3,h4,h5,h6')){
+        const content = i.innerHTML
         const text = i.innerText
-        i.innerHTML = ""
+        i.innerHTML = "# "
         addNode(i, {
             ele: 'a',
             attr:{ href: "#" + text },
-            children: "# " + text
+            children: content
         })
     }
 

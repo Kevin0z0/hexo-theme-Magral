@@ -38,7 +38,7 @@ class Router{
 new Router([
     {
         name: "index",
-        path: /^\/(index\.html)?$/,
+        path: /^\/(index\.html)?(page\/\d+\/)?$/,
         layout: () => import('./layout/home/home')
     },
     {

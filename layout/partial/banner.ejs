@@ -12,7 +12,7 @@
                 <a class="banner__main__wrap-title" href="<%= fillPath(posts[0].path) %>"><%= posts[0].title %></a>
                 <div class="banner__main__wrap-info clearfix">
                     <div class="banner__main__wrap-info-left">
-                        <span><%=theme.author%></span> 
+                        <span><%=theme.author.name%></span> 
                         <span class="banner__main__wrap-sep">·</span>
                         <span id="banner__main__date"><%=date(posts[0].date, theme.dateFormat)%></span>
                     </div>
@@ -33,7 +33,7 @@
     <div class="banner__side">
         <%for(let i = 1; i < posts.length; i++) {
             const item = posts[i]%>
-            <div class='banner__side__pic radius' style="height: <%= (100 / (posts.length - 1)) %>%; z-index: <%=i%>" >
+            <div class='banner__side__pic radius' style='height: <%=(100 / (posts.length - 1))%>%; z-index: <%=i%>' >
                 <a class="banner__side__title" href="<%=fillPath(item.path)%>">
                     <%= item.title %>
                 </a>

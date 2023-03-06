@@ -1,20 +1,83 @@
-.viewer-toolbar > ul > li{
-    width: 30px !important;
-    height: 30px !important;
-    &::before{
-        margin:5px !important;
-    }
-    margin: 0 .5rem;
-}
-
-.viewer-toolbar > ul > .viewer-large{
-    width: 36px !important;
-    height: 36px !important;
-    &::before{
-        margin: 8px !important;
-    }
-}
-
 .post{
-    margin: 6rem 0;
+    margin: 6rem auto;
+    width: 80%;
+    max-width: 100rem;
+    font-family: "Microsoft Yahei";
+    &__copyright{
+
+        border-left: .4rem solid var(--primary-color);
+        padding: 1rem 2rem;
+        color: var(--primary-font-color);
+        line-height: 3rem;
+        font-size: 1.4rem;
+
+        p > span{
+            word-break: keep-all;
+        }
+
+        &__author{
+            font-weight: 900;
+            color: var(--primary-color);
+        }
+
+        &__url{
+            color: var(--contrast);
+            text-decoration: underline;
+        }
+    }
+
+    &__other_post{
+        margin: 6rem 0;
+        display: flex;
+        gap: 10rem;
+        font-size: 2.4rem;
+        font-weight: 900;
+        &-prev, &-next{
+            position: relative;
+            width: 50%;
+            min-height: 8rem;
+            overflow: hidden;
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            color: #fff;
+            
+
+
+            .iconfont{
+                font-size: 2.4rem;
+                padding-left: 2rem;
+            }
+
+            a{
+                margin: 2rem;
+                color: #fff;
+                @include ellipsis(2);
+                word-break: break-all;
+                &:hover{
+                    text-decoration: underline;
+                }
+            }
+
+            img{
+                width: 100%;
+                position: absolute;
+                top: 0;
+                left: 0;
+                filter: blur(5px);
+                transform: scale(1.1);
+                z-index: -1;
+            }
+        }
+
+        &-next{
+            justify-content: flex-end;
+
+            .iconfont{
+                padding-right: 2rem;
+                padding-left: 0;
+            }
+        }
+    }
+
 }

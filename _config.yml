@@ -1,6 +1,8 @@
 # Magral Theme Config
 title: Magral Blog
-author: Kevin。
+author: 
+  name: Kevin。
+  url: /
 
 dateFormat: YYYY, MMM DD
 
@@ -21,7 +23,7 @@ devPort: 60002
 
 sass:
   compressed: true
-  save: false
+  save: true
   prefix: prod_
   autoprefixer: false
   sourceMap: true
