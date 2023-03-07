@@ -14,14 +14,19 @@ class Router{
     }
 
     __run(){
+        let flag = false
         for(let i = 0; i < this.__routes.length; i++){
             const route = this.__routes[i]
             if(this.testPath(route.path)){
                 const temp = route.layout(this)
                 if(isPromise(temp)) temp.then(v=>{v.default(this)})
+                flag = true
                 break
             }
         }
+        // if(!flag){
+        //     window.location = '/'
+        // }
     }
 
     to(name, cb){

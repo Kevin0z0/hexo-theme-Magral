@@ -1,10 +1,14 @@
-import '../../components/icon'
+import tabs from '../../components/icon'
 import LazyLoad from "vanilla-lazyload"
 import banner from './banner'
 import Typed from 'typed.js';
 
 
-if(recommend) import('../../components/recommend')
+try{
+    if(recommend) import('../../components/recommend')
+}catch(e){
+    
+}
 
 const menu = document.getElementsByClassName("header-big__center__list-name")
 for(const i of menu){
@@ -21,7 +25,7 @@ const lazyLoadInstance = new LazyLoad({
 
 
 banner()
-
+tabs('header-big__center__list-name')
 
 
 const typed = document.getElementsByClassName('typed')[0]

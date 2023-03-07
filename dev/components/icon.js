@@ -15,17 +15,20 @@ tippy('.tippy-top', {
   // trigger: 'click'
 })
 
-const menuList = document.getElementsByClassName('header-big__center__list-name')
-for(const i of menuList){
-  const next = i.nextElementSibling
-  if(next){
-    tippy(i, {
-      theme: 'magral-menu',
-      arrow: false,
-      allowHTML: true,
-      content: next,
-      interactive: true,
-      // trigger: 'click'
-    })
+export default function(element){
+  const menuList = document.getElementsByClassName(element)
+  for(const i of menuList){
+    const next = i.nextElementSibling
+    if(next){
+      tippy(i, {
+        theme: 'magral-menu',
+        arrow: false,
+        allowHTML: true,
+        content: next,
+        interactive: true,
+        // trigger: 'click'
+      })
+    }
   }
 }
+

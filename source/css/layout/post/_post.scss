@@ -1,8 +1,65 @@
+.post-banner{
+    padding: 0 6rem 4rem;
+    height: 100vh;
+    
+    &__img{
+        background-position: center center;
+        background-size: cover;
+        height: calc(100% - 12.2rem);
+        border-radius: 1.5rem;
+        position: relative;
+    }
+
+    &__wrap{
+        position: absolute;
+        bottom: 0;
+        padding: 5rem 6rem;
+        width: 100%;
+
+        &-title{
+            font-size: 5rem;
+            color: #fff;
+            display: inline-block;
+            margin-bottom: 2rem;
+            width: 100%;
+            @include ellipsis(1);
+
+            &:hover{
+                text-decoration: underline;
+            }
+        }
+
+        &-info{
+            color: #fff;
+            font-size: 1.6rem;
+        }
+    }
+}
+
 .post{
-    margin: 6rem auto;
+    margin: 0rem auto 6rem;
     width: 80%;
-    max-width: 100rem;
+    max-width: 150rem;
     font-family: "Microsoft Yahei";
+
+    &__info{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 4rem;
+        &-count{
+            color: var(--secondary-font-color);
+            & > span{
+                margin-right: 2rem;
+            }
+        }
+
+        &-tags{
+            display: flex;
+            gap: 1rem;
+        }
+    }
+
     &__copyright{
 
         border-left: .4rem solid var(--primary-color);

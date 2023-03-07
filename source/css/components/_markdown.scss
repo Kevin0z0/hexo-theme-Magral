@@ -98,6 +98,20 @@
         }
     }
 
+    blockquote{
+        border-left: .4rem solid var(--primary-color);
+        padding: 1rem 2rem;
+        margin: 2rem 0;
+        background-color: var(--secondary-color);
+    }
+
+    hr{
+        background-color: var(--tertiary-font-color);
+        margin: 2rem 0;
+        border: none;
+        height: .2rem;
+    }
+
     code:not(pre code){
         background-color: var(--secondary-color);
         color: var(--primary-color);
@@ -155,6 +169,10 @@
 
     ol li{
         list-style-type: decimal !important;
+    }
+
+    ul li, ol li{
+        margin: .6rem 0;
     }
 
     ul[class^='lvl-'], ol{

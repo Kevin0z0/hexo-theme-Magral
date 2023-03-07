@@ -23,7 +23,7 @@ devPort: 60002
 
 sass:
   compressed: true
-  save: true
+  save: false
   prefix: prod_
   autoprefixer: false
   sourceMap: true
@@ -174,3 +174,11 @@ svgBackground:
 
 markdown:
   tag_rotate: true
+
+post:
+  article_length: 文章字数
+  reading_duration: 阅读时间
+  min: 分钟
+  reading_times: 阅读次数
+world_count:
+  enable: true

@@ -1,17 +1,46 @@
 <%- partial('head', {}, {cache: true}) %>
 <%-css(fillPath("css/external/prism.css"))%>
 <%-js(fillPath("js/external/prism.js"))%>
-
+<script async src="https://busuanzi.icodeq.com/busuanzi.pure.mini.js"></script>
 <% const page_url = config.url + (config.url.endsWith('/') ? '' : '/') + path %>
 
+
+<div class="post-banner">
+    <%- include("header/header-small.ejs") %> 
+    <div class="post-banner__img" style="background-image: url('<%=fillPath(page.img)%>');">
+        <div class="post-banner__wrap">
+            <a class="post-banner__wrap-title" href="<%= fillPath(page.path) %>"><%= page.title %></a>
+            <div class="post-banner__wrap-info">
+                <span><%=theme.author.name%></span> 
+                <span class="post-banner__wrap-sep">·</span>
+                <span id="post-banner__wrap__date"><%=date(page.date, theme.dateFormat)%></span>
+            </div>
+        </div>
+    </div>
+</div>
+
 <main class="post">
+    <div class="post__info">
+        <div class="post__info-count">
+            <span><%=theme.post.article_length%>: <%=wordcount(page.content)%></span>
+            <span><%=theme.post.reading_duration%>: <%=min2read(page.content)+theme.post.min%></span>
+            <span><%=theme.post.reading_times%>: <span id="busuanzi_value_page_pv">loading...</span></span>
+        </div>
+        <div class="post__info-tags">
+            <% let flag = true
+            for(const i of page.tags.data) {%>
+                <%- partial('partial/tag', {info: i, hover: flag}) %>   
+            <% flag = false } %>
+        </div>
+    </div>
+
     <div class="md">
         <%- page.content %>
     </div>
-    <div style="text-align: center;margin: 6rem 0;">- END -</div>
+    <div style="text-align: center;margin: 6rem 0;user-select: none;">- END -</div>
     <div class="post__copyright">
         <p><span>作者:</span>&nbsp;<a class="post__copyright__author" href="<%=theme.author.url%>"><%=theme.author.name%></a></p>
-        <p><span>文章链接:</span>&nbsp;<a class='post__copyright__url' href="<%=page_url%>"><%=page_url%></a></p>
+        <p><span>文章链接:</span>&nbsp;<a class='post__copyright__url' href="<%=page_url%>" style="word-break: break-all;"><%=page_url%></a></p>
         <p><span>版权声明:</span>&nbsp;本博客所有文章除特別声明外，均采用 <a class="post__copyright__author" href="https://creativecommons.org/licenses/by/4.0/deed.zh">CC BY 4.0</a> 许可协议。转载请注明来源<a class="post__copyright__author" href="<%=theme.author.url%>"><%=theme.author.name%></a>!</p>
     </div>
     <div class="post__other_post">
@@ -23,13 +52,13 @@
         %>
         <div class="post__other_post-prev">
             <span class="iconfont icon-cc-arrow-left"></span>
-            <a href="<%=fillPath(prev.path)%>"><%=prev.title%></a>
-            <img src="<%=prev.img%>" alt="">
+            <a href="<%=fillPath(prev.path)%>" ><%=prev.title%></a>
+            <img src="<%=fillPath(prev.img)%>" alt="">
         </div>
         <div class="post__other_post-next">
             <a href="<%=fillPath(next.path)%>"><%=next.title%></a>
             <span class="iconfont icon-cc-arrow-right"></span>
-            <img src="<%=next.img%>" alt="">
+            <img src="<%=fillPath(next.img)%>" alt="">
         </div>
     </div>
 </main>

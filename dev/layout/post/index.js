@@ -1,6 +1,6 @@
 import '../../utils/markdown';
+import tabs from '../../components/icon';
 
 
 
-
-console.log(1);
+tabs('header-small__right__list-name')
