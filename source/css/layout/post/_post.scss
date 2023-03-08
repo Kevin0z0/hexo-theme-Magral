@@ -1,13 +1,31 @@
 .post-banner{
     padding: 0 6rem 4rem;
     height: 100vh;
+    position: relative;
+
+    &__img-wrap{
+        height: calc(100% - 12.2rem);
+        position: relative;
+    }
     
-    &__img{
+    &__img, &__shadow{
         background-position: center center;
         background-size: cover;
-        height: calc(100% - 12.2rem);
+        height: 100%;
         border-radius: 1.5rem;
-        position: relative;
+    }
+
+    &__shadow{
+        top: 0;
+        left: 0;
+        z-index: -1;
+        filter: blur(1.6rem) opacity(0.4) brightness(0.9);
+        transform: scale(0.98, 0.98) translateY(3rem);
+        transition: .2s;
+        background-size: cover;
+        position: absolute;
+        bottom: 0;
+        right: 0;
     }
 
     &__wrap{
