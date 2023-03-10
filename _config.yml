@@ -19,7 +19,7 @@ dev: true
 devPort: 60002
 
 # ---------- #
-
+default_banner: /medias/default.png
 
 sass:
   compressed: true

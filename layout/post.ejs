@@ -2,14 +2,12 @@
 <%-css(fillPath("css/external/prism.css"))%>
 <%-js(fillPath("js/external/prism.js"))%>
 <% const page_url = config.url + (config.url.endsWith('/') ? '' : '/') + path %>
-
-
 <div class="post-banner">
     <%- include("header/header-small.ejs") %> 
     <div class="post-banner__img-wrap">
-        <div class="post-banner__img" style="background-image: url('<%=fillPath(page.img)%>');">
+        <div class="post-banner__img" style="background-image: url('<%=banner(page.img)%>');">
             <div class="post-banner__wrap">
-                <a class="post-banner__wrap-title" href="<%= fillPath(page.path) %>"><%= page.title %></a>
+                <span class="post-banner__wrap-title"><%= page.title %></span>
                 <div class="post-banner__wrap-info">
                     <span><%=theme.author.name%></span> 
                     <span class="post-banner__wrap-sep">·</span>
@@ -17,7 +15,7 @@
                 </div>
             </div>
         </div>
-        <div class="post-banner__shadow" style="background-image: url('<%=fillPath(page.img)%>');"></div>
+        <div class="post-banner__shadow" style="background-image: url('<%=banner(page.img)%>');"></div>
     </div>
 </div>
 
@@ -55,13 +53,16 @@
         <div class="post__other_post-prev">
             <span class="iconfont icon-cc-arrow-left"></span>
             <a href="<%=fillPath(prev.path)%>" ><%=prev.title%></a>
-            <img src="<%=fillPath(prev.img)%>" alt="">
+            <img src="<%=banner(prev.img)%>" alt="">
         </div>
         <div class="post__other_post-next">
             <a href="<%=fillPath(next.path)%>"><%=next.title%></a>
             <span class="iconfont icon-cc-arrow-right"></span>
-            <img src="<%=fillPath(next.img)%>" alt="">
+            <img src="<%=banner(next.img)%>" alt="">
         </div>
+    </div>
+    <div class="post__toc">
+        <%- toc(page.content, {list_number:false}) %>    
     </div>
 </main>
 
