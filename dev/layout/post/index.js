@@ -1,7 +1,8 @@
 import '../../utils/markdown';
 import tabs from '../../components/icon';
 import scrollIntoView from 'scroll-into-view-if-needed'
-
+import tocbot from 'tocbot'
+import _ from 'lodash'
 
 
 
@@ -17,3 +18,25 @@ window.addEventListener("load", () => {
     const item = document.getElementById(hash)
     if(item) scrollIntoView(item, { behavior: 'smooth', scrollMode: 'always', block: 'start', inline: 'start'})
 })
+
+tocbot.init({
+    tocSelector: '.toc',
+    contentSelector: '.md',
+    headingSelector: 'h1, h2, h3',
+    hasInnerContainers: true,
+    headingLabelCallback: (e)=>{return e.substring(2)}
+})
+
+const markdownMain = document.getElementsByClassName('post')[0]
+const toc = document.getElementsByClassName('toc')[0]
+function setTocFixed(){
+    const top = markdownMain.getBoundingClientRect().top
+    if (top < 65) {
+        console.log(toc.getBoundingClientRect());
+        toc.className = "toc toc__fixed"
+    }else{
+        toc.className = "toc"
+    }
+}
+
+window.addEventListener('scroll', _.throttle(setTocFixed, 100))

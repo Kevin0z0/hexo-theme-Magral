@@ -262,4 +262,12 @@
         }
     }
     
+    .url-link{
+        text-decoration: underline;
+        transition: .2s color;
+        &:hover{
+            color: var(--secondary-font-color);
+            
+        }
+    }
 }

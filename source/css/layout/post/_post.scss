@@ -55,33 +55,44 @@
     }
 }
 
-.post{
-    padding-top: 4rem;
-    margin: -4rem auto 6rem;
+.post__info, .post, .other_post{
     width: 80%;
+    margin-left: auto;
+    margin-right: auto;
     max-width: 150rem;
-    font-family: "Microsoft Yahei";
+}
 
-    &__info{
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 4rem;
-        &-count{
-            color: var(--secondary-font-color);
-            & > span{
-                margin-right: 2rem;
-            }
-        }
-
-        &-tags{
-            display: flex;
-            gap: 1rem;
+.post__info{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 4rem;
+    &-count{
+        color: var(--secondary-font-color);
+        & > span{
+            margin-right: 2rem;
         }
     }
 
-    &__copyright{
+    &-tags{
+        display: flex;
+        gap: 1rem;
+    }
+}
 
+.post{
+    margin: -4rem auto 6rem;
+    padding-top: 4rem;
+    font-family: "Microsoft Yahei";
+    display: flex;
+    position: relative;
+    gap: 6rem;
+
+    .md{
+        flex: 1 1 auto;
+    }
+
+    &__copyright{
         border-left: .4rem solid var(--primary-color);
         padding: 1rem 2rem;
         color: var(--primary-font-color);
@@ -102,59 +113,88 @@
             text-decoration: underline;
         }
     }
+}
 
-    &__other_post{
-        margin: 6rem 0;
+.other_post{
+    margin: 6rem auto;
+    display: flex;
+    gap: 10rem;
+    font-size: 2.4rem;
+    font-weight: 900;
+    &-prev, &-next{
+        position: relative;
+        width: 50%;
+        min-height: 8rem;
+        overflow: hidden;
+        border-radius: 1rem;
         display: flex;
-        gap: 10rem;
-        font-size: 2.4rem;
-        font-weight: 900;
-        &-prev, &-next{
-            position: relative;
-            width: 50%;
-            min-height: 8rem;
-            overflow: hidden;
-            border-radius: 1rem;
-            display: flex;
-            align-items: center;
+        align-items: center;
+        color: #fff;
+        
+
+
+        .iconfont{
+            font-size: 2.4rem;
+            padding-left: 2rem;
+        }
+
+        a{
+            margin: 2rem;
             color: #fff;
-            
-
-
-            .iconfont{
-                font-size: 2.4rem;
-                padding-left: 2rem;
-            }
-
-            a{
-                margin: 2rem;
-                color: #fff;
-                @include ellipsis(2);
-                word-break: break-all;
-                &:hover{
-                    text-decoration: underline;
-                }
-            }
-
-            img{
-                width: 100%;
-                position: absolute;
-                top: 0;
-                left: 0;
-                filter: blur(5px);
-                transform: scale(1.1);
-                z-index: -1;
+            @include ellipsis(2);
+            word-break: break-all;
+            &:hover{
+                text-decoration: underline;
             }
         }
 
-        &-next{
-            justify-content: flex-end;
-
-            .iconfont{
-                padding-right: 2rem;
-                padding-left: 0;
-            }
+        img{
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            filter: blur(5px);
+            transform: scale(1.1);
+            z-index: -1;
         }
     }
 
+    &-next{
+        justify-content: flex-end;
+
+        .iconfont{
+            padding-right: 2rem;
+            padding-left: 0;
+        }
+    }
+}
+
+.toc-wrap{
+    width:26rem;
+}
+
+.toc{
+    font-size: 1.4rem;
+    color: var(--primary-font-color);
+    position: absolute;
+    top: 6rem;
+    
+    &__fixed{
+        position: fixed;
+    }
+
+
+
+    .is-active-link::before{
+        background-color: var(--primary-color);
+    }
+
+    a.toc-link{
+        line-height: 2.4rem;
+        max-width: 26rem;
+        display: inline-block;
+    }
+    ol{
+        list-style: none;
+    }
 }

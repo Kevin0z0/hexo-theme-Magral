@@ -1,6 +1,7 @@
 <%- partial('head', {}, {cache: true}) %>
 <%-css(fillPath("css/external/prism.css"))%>
 <%-js(fillPath("js/external/prism.js"))%>
+<%-css("https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.18.2/tocbot.css")%>
 <% const page_url = config.url + (config.url.endsWith('/') ? '' : '/') + path %>
 <div class="post-banner">
     <%- include("header/header-small.ejs") %> 
@@ -19,52 +20,52 @@
     </div>
 </div>
 
-<main class="post">
-    <div class="post__info">
-        <div class="post__info-count">
-            <span><%=theme.post.article_length%>: <%=wordcount(page.content)%></span>
-            <span><%=theme.post.reading_duration%>: <%=min2read(page.content)+theme.post.min%></span>
-            <span><%=theme.post.reading_times%>: <span id="busuanzi_value_page_pv">loading...</span></span>
-        </div>
-        <div class="post__info-tags">
-            <% let flag = true
-            for(const i of page.tags.data) {%>
-                <%- partial('partial/tag', {info: i, hover: flag}) %>   
-            <% flag = false } %>
-        </div>
+<div class="post__info">
+    <div class="post__info-count">
+        <span><%=theme.post.article_length%>: <%=wordcount(page.content)%></span>
+        <span><%=theme.post.reading_duration%>: <%=min2read(page.content)+theme.post.min%></span>
+        <span><%=theme.post.reading_times%>: <span id="busuanzi_value_page_pv">loading...</span></span>
     </div>
+    <div class="post__info-tags">
+        <% let flag = true
+        for(const i of page.tags.data) {%>
+            <%- partial('partial/tag', {info: i, hover: flag}) %>   
+        <% flag = false } %>
+    </div>
+</div>
 
+<main class="post">
     <div class="md">
         <%- page.content %>
-    </div>
-    <div style="text-align: center;margin: 6rem 0;user-select: none;">- END -</div>
-    <div class="post__copyright">
-        <p><span>作者:</span>&nbsp;<a class="post__copyright__author" href="<%=theme.author.url%>"><%=theme.author.name%></a></p>
-        <p><span>文章链接:</span>&nbsp;<a class='post__copyright__url' href="<%=page_url%>" style="word-break: break-all;"><%=page_url%></a></p>
-        <p><span>版权声明:</span>&nbsp;本博客所有文章除特別声明外，均采用 <a class="post__copyright__author" href="https://creativecommons.org/licenses/by/4.0/deed.zh">CC BY 4.0</a> 许可协议。转载请注明来源<a class="post__copyright__author" href="<%=theme.author.url%>"><%=theme.author.name%></a>!</p>
-    </div>
-    <div class="post__other_post">
-        <%
-        let prev = page.prev
-        let next = page.next
-        if(!prev) prev = page
-        if(!next) next = page
-        %>
-        <div class="post__other_post-prev">
-            <span class="iconfont icon-cc-arrow-left"></span>
-            <a href="<%=fillPath(prev.path)%>" ><%=prev.title%></a>
-            <img src="<%=banner(prev.img)%>" alt="">
+        <div style="text-align: center;margin: 6rem 0;user-select: none;">- END -</div>
+        <div class="post__copyright">
+            <p><span>作者:</span>&nbsp;<a class="post__copyright__author" href="<%=theme.author.url%>"><%=theme.author.name%></a></p>
+            <p><span>文章链接:</span>&nbsp;<a class='post__copyright__url' href="<%=page_url%>" style="word-break: break-all;"><%=page_url%></a></p>
+            <p><span>版权声明:</span>&nbsp;本博客所有文章除特別声明外，均采用 <a class="post__copyright__author" href="https://creativecommons.org/licenses/by/4.0/deed.zh">CC BY 4.0</a> 许可协议。转载请注明来源<a class="post__copyright__author" href="<%=theme.author.url%>"><%=theme.author.name%></a>!</p>
         </div>
-        <div class="post__other_post-next">
-            <a href="<%=fillPath(next.path)%>"><%=next.title%></a>
-            <span class="iconfont icon-cc-arrow-right"></span>
-            <img src="<%=banner(next.img)%>" alt="">
-        </div>
-    </div>
-    <div class="post__toc">
-        <%- toc(page.content, {list_number:false}) %>    
+    </div>  
+    <div class="toc-wrap">
+        <div class="toc"></div>
     </div>
 </main>
+<div class="other_post">
+    <%
+    let prev = page.prev
+    let next = page.next
+    if(!prev) prev = page
+    if(!next) next = page
+    %>
+    <div class="other_post-prev">
+        <span class="iconfont icon-cc-arrow-left"></span>
+        <a href="<%=fillPath(prev.path)%>" ><%=prev.title%></a>
+        <img src="<%=banner(prev.img)%>" alt="">
+    </div>
+    <div class="other_post-next">
+        <a href="<%=fillPath(next.path)%>"><%=next.title%></a>
+        <span class="iconfont icon-cc-arrow-right"></span>
+        <img src="<%=banner(next.img)%>" alt="">
+    </div>
+</div>
 
 
 <%- include("footer.ejs") %> 
