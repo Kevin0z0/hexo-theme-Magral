@@ -146,3 +146,20 @@ header{
     }
 }
 
+.header-wrap{
+    height: 10.2rem;
+}
+
+.header-fix{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 8rem;    
+    padding: 2rem 6rem;
+    z-index: 9999;
+
+    backdrop-filter: blur(12px);
+    background-color: rgba(255, 255, 255, 0.75);
+    box-shadow: 0 2rem 4rem rgba(108, 108, 108, .1);
+}

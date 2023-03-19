@@ -26,7 +26,7 @@ function init(){
         })
     }
 
-    for(const i of document.querySelectorAll(".md > pre[class*='language-']")){
+    for(const i of document.querySelectorAll(".md pre[class*='language-']")){
         const language = i.getAttribute('data-language') || ''
         const wrapper = createNode({
             ele: 'div',

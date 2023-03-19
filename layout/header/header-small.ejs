@@ -1,38 +1,41 @@
-<div class="header-small">
-    <div class="header-small__left">
-        <a class="header-small__left__name" href="/">
-            <% if(theme.logo.img) {%>
-                <img src="<%= theme.logo.img %>" />
-            <%}%>
-            <% if(theme.logo.name) {%>
-                <span><%=theme.logo.name%></span>
-            <%}%>
-        </a>
-    </div>
-    <div class="header-small__right">
-        <ul class="header-small__right__list">
-            <% 
-            const menu = theme.menu
-            for(const key of Object.keys(menu)) {
-                const item = menu[key]
-            %>
-                <li>
-                    <a class="header-small__right__list-name" data-tippy-placement="bottom" 
-                    href="<%= item.url || '/' %>">
-                        <%= item.name || key %><%-item.children && `<b>&nbsp;·</b>`%>
-                    </a>
-                    <% if(item.children){ %>
-                    <div class="header-small__right__list-children">
-                        <% for(const child of item.children) {%>
-                            <a href="<%=child.url%>" target="_blank"><%=child.name%></a>
+<div class="header-wrap">
+    <div class="header-placeholder"></div>
+    <div class="header-small">
+        <div class="header-small__left">
+            <a class="header-small__left__name" href="/">
+                <% if(theme.logo.img) {%>
+                    <img src="<%= theme.logo.img %>" />
+                <%}%>
+                <% if(theme.logo.name) {%>
+                    <span><%=theme.logo.name%></span>
+                <%}%>
+            </a>
+        </div>
+        <div class="header-small__right">
+            <ul class="header-small__right__list">
+                <% 
+                const menu = theme.menu
+                for(const key of Object.keys(menu)) {
+                    const item = menu[key]
+                %>
+                    <li>
+                        <a class="header-small__right__list-name" data-tippy-placement="bottom" 
+                        href="<%= item.url || '/' %>">
+                            <%= item.name || key %><%-item.children && `<b>&nbsp;·</b>`%>
+                        </a>
+                        <% if(item.children){ %>
+                        <div class="header-small__right__list-children">
+                            <% for(const child of item.children) {%>
+                                <a href="<%=child.url%>" target="_blank"><%=child.name%></a>
+                            <% } %>
+                        </div>
                         <% } %>
-                    </div>
-                    <% } %>
-                </li>
-            <% } %>
-        </ul>
-
-        <span class="iconfont icon-Sun"></span>
-        <span class="iconfont icon-search"></span>
+                    </li>
+                <% } %>
+            </ul>
+    
+            <span class="iconfont icon-Sun"></span>
+            <span class="iconfont icon-search"></span>
+        </div>
     </div>
 </div>

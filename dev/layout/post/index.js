@@ -31,8 +31,7 @@ const markdownMain = document.getElementsByClassName('post')[0]
 const toc = document.getElementsByClassName('toc')[0]
 function setTocFixed(){
     const top = markdownMain.getBoundingClientRect().top
-    if (top < 65) {
-        console.log(toc.getBoundingClientRect());
+    if (top < 85) {
         toc.className = "toc toc__fixed"
     }else{
         toc.className = "toc"
